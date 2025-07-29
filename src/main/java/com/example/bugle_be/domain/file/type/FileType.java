@@ -15,4 +15,9 @@ public enum FileType {
     private final String path;
     private final Set<String> extensions;
 
+    public boolean isAllowedExtension(String fileName) {
+        String extension = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+        return extensions.contains(extension);
+    }
+
 }
