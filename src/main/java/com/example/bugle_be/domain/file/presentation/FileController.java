@@ -1,0 +1,25 @@
+package com.example.bugle_be.domain.file.presentation;
+
+import com.example.bugle_be.domain.file.presentation.dto.request.FileUploadRequest;
+import com.example.bugle_be.domain.file.presentation.dto.response.FileUploadUrlResponse;
+import com.example.bugle_be.domain.file.service.FileUploadService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/files")
+@RequiredArgsConstructor
+public class FileController {
+
+    private final FileUploadService fileUploadService;
+
+    @PostMapping("/pre-signed")
+    public FileUploadUrlResponse createPresignedUrl(@RequestBody @Valid FileUploadRequest request) {
+        return fileUploadService.execute(request);
+    }
+
+}
