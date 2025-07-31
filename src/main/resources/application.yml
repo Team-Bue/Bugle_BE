@@ -37,12 +37,9 @@ spring:
 
 cloud:
   aws:
-    s3:
-      bucket: ${BUCKET_NAME}
-    credentials:
-      accessKey: ${AWS_ACCESS_KEY_ID}
-      secretKey: ${AWS_SECRET_ACCESS_KEY}
-    region:
-      static: ${AWS_REGION}
+    bucket: ${BUCKET_NAME}
+    accessKey: ${AWS_ACCESS_KEY_ID}
+    secretKey: ${AWS_SECRET_ACCESS_KEY}
+    region: ${AWS_REGION}
     stack:
       auto: false
