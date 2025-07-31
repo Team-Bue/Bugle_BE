@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,19 +20,13 @@ public class FileUploadService {
     private static final Duration DEFAULT_DURATION = Duration.ofMinutes(2);
 
     public FileUploadUrlResponse execute(FileUploadRequest request) {
-        List<FileUploadUrlResponse.FileUploadUrl> urls = request.files().stream()
-            .map(file -> {
-                validateFileName(file.fileName());
-                validateExtension(file.fileName(), file.fileType());
+        validateFileName(request.fileName());
+        validateExtension(request.fileName(), request.fileType());
 
-                String fileName = file.fileName();
-                String url = s3Service.createUploadPresignedUrl(fileName, DEFAULT_DURATION, file.fileType().getPath()).toString();
+        String objectKey = generateObjectKey(request.fileType(), request.fileName());
+        String url = s3Service.createUploadPresignedUrl(objectKey, DEFAULT_DURATION).toString();
 
-                return new FileUploadUrlResponse.FileUploadUrl(fileName, url);
-            })
-            .toList();
-
-        return new FileUploadUrlResponse(urls);
+        return new FileUploadUrlResponse(objectKey, url);
     }
 
     private void validateFileName(String fileName) {
@@ -45,6 +39,10 @@ public class FileUploadService {
         if (!fileType.isAllowedExtension(fileName)) {
             throw UnsupportedFileExtension.EXCEPTION;
         }
+    }
+
+    private String generateObjectKey(FileType fileType, String fileName) {
+        return fileType.getPath().toLowerCase() + "/" + UUID.randomUUID() + "/" + fileName;
     }
 
 }
