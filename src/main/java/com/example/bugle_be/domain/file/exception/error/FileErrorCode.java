@@ -10,7 +10,8 @@ import org.springframework.http.HttpStatus;
 public enum FileErrorCode implements ErrorProperty {
 
     UNSUPPORTED_FILE_EXTENSION(HttpStatus.BAD_REQUEST, "Unsupported file extension"),
-    FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "File not found");
+    FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "File not found"),
+    FILE_IS_EMPTY(HttpStatus.BAD_REQUEST, "File is empty");
 
     private final HttpStatus status;
     private final String message;

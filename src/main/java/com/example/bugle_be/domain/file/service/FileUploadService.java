@@ -1,6 +1,6 @@
 package com.example.bugle_be.domain.file.service;
 
-import com.example.bugle_be.domain.file.exception.FileNotFound;
+import com.example.bugle_be.domain.file.exception.FileIsEmpty;
 import com.example.bugle_be.domain.file.exception.UnsupportedFileExtension;
 import com.example.bugle_be.domain.file.presentation.dto.request.FileUploadRequest;
 import com.example.bugle_be.domain.file.presentation.dto.response.FileUploadUrlResponse;
@@ -31,7 +31,7 @@ public class FileUploadService {
 
     private void validateFileName(String fileName) {
         if (fileName == null || fileName.isEmpty()) {
-            throw FileNotFound.EXCEPTION;
+            throw FileIsEmpty.EXCEPTION;
         }
     }
 
