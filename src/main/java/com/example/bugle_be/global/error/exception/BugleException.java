@@ -8,5 +8,4 @@ import lombok.RequiredArgsConstructor;
 public class BugleException extends RuntimeException {
 
     private final ErrorProperty errorProperty;
-
 }

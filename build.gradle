@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
@@ -36,6 +38,11 @@ dependencies {
 
     // aws
     implementation 'software.amazon.awssdk:s3:2.25.23'
+
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
 }
 
 tasks.named('test') {

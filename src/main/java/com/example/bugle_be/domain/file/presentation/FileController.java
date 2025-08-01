@@ -20,5 +20,4 @@ public class FileController {
     public FileUploadUrlResponse createPresignedUrl(@RequestBody @Valid FileUploadRequest request) {
         return fileUploadService.execute(request);
     }
-
 }

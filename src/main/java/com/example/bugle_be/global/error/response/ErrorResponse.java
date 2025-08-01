@@ -14,5 +14,4 @@ public record ErrorResponse(
             errorProperty.getMessage()
         );
     }
-
 }

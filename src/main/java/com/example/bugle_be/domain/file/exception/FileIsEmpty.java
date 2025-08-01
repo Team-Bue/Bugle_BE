@@ -10,5 +10,4 @@ public class FileIsEmpty extends BugleException {
     private FileIsEmpty() {
         super(FileErrorCode.FILE_IS_EMPTY);
     }
-
 }
