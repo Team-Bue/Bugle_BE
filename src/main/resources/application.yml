@@ -9,7 +9,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -43,3 +43,6 @@ cloud:
     region: ${AWS_REGION}
     stack:
       auto: false
+
+profile:
+  default-image-url: ${DEFAULT_PROFILE_IMAGE}

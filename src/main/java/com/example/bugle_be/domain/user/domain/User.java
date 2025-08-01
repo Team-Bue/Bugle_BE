@@ -13,14 +13,18 @@ import lombok.*;
 public class User extends BaseIdEntity {
 
     @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
-    private String email; // email validation 사용하기
+    private String email;
 
     @Column(columnDefinition = "VARCHAR(60)")
-    private String password; // 특수문자 @,#,!,%,&,* 포함
+    private String password;
 
     @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
-    private String accountId; // .으로 시작하거나 .으로 끝나면 안됨, 최소 4자 최대 20자, [영문, 숫자, 언더바, 점]만 가능함 @Pattern 사용 고려
+    private String accountId;
 
     @Column(columnDefinition = "VARCHAR(20)")
-    private String userName; // 최소 제한 없음, 최대 20자
+    private String userName;
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    private String profileImageUrl;
+    // 포스트 연관관계 설정
 }
