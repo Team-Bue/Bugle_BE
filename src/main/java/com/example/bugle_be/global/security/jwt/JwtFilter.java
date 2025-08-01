@@ -1,7 +1,5 @@
 package com.example.bugle_be.global.security.jwt;
 
-import com.example.bugle_be.global.exception.ExpiredJwt;
-import com.example.bugle_be.global.exception.InvalidJwt;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,15 +23,11 @@ public class JwtFilter extends OncePerRequestFilter {
         FilterChain filterChain
     ) throws ServletException, IOException {
 
-        try {
-            String parseToken = jwtTokenProvider.resolveToken(request);
+        String parseToken = jwtTokenProvider.resolveToken(request);
 
-            if (parseToken != null) {
-                Authentication authentication = jwtTokenProvider.authentication(parseToken);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        } catch (InvalidJwt | ExpiredJwt e) {
-            SecurityContextHolder.clearContext();
+        if (parseToken != null) {
+            Authentication authentication = jwtTokenProvider.authentication(parseToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);
