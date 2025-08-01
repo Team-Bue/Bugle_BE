@@ -15,7 +15,7 @@ public class User extends BaseIdEntity {
     @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
     private String email; // email validation 사용하기
 
-    @Column(columnDefinition = "CHAR(64)")
+    @Column(columnDefinition = "VARCHAR(60)")
     private String password; // 특수문자 @,#,!,%,&,* 포함
 
     @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(20)")
