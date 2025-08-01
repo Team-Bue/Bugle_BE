@@ -7,7 +7,7 @@ import com.example.bugle_be.global.exception.InvalidJwt;
 import com.example.bugle_be.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -28,26 +29,23 @@ public class JwtTokenProvider {
     private final AuthDetailsService authDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    private SecretKeySpec secretKeySpec;
+    private SecretKey secretKey;
 
     private static final String ACCESS = "access";
     private static final String REFRESH = "refresh";
 
     @PostConstruct
     public void initSecretKey() {
-        this.secretKeySpec = new SecretKeySpec(
-            jwtProperties.secretKey().getBytes(),
-            SignatureAlgorithm.HS256.getJcaName()
-        );
+        this.secretKey = Keys.hmacShaKeyFor(jwtProperties.secretKey().getBytes(StandardCharsets.UTF_8));
     }
 
     private String generateToken(String email, String type, Long exp) {
         return Jwts.builder()
-            .signWith(secretKeySpec)
-            .setSubject(email)
-            .setHeaderParam("type", type)
-            .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(exp) * 1000))
+            .header().add("type", type).and()
+            .subject(email)
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(exp)))
+            .signWith(secretKey, Jwts.SIG.HS256)
             .compact();
     }
 
@@ -83,11 +81,11 @@ public class JwtTokenProvider {
 
     private Claims getClaims(String token) {
         try {
-            return Jwts.parserBuilder()
-                .setSigningKey(secretKeySpec)
+            return Jwts.parser()
+                .verifyWith(secretKey)
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
         } catch (Exception e) {
             if (e instanceof io.jsonwebtoken.ExpiredJwtException) {
                 throw ExpiredJwt.EXCEPTION;
