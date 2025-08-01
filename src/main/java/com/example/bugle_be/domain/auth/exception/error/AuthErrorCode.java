@@ -15,7 +15,7 @@ public enum AuthErrorCode implements ErrorProperty {
 
     // accountId
     ALREADY_ACCOUNT_ID_EXISTS(HttpStatus.CONFLICT, "Already AccountId Exists"),
-    ACCOUNT_ID_NOT_FOUND(HttpStatus.CONFLICT, "Account Id Not Found"),
+    ACCOUNT_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "Account Id Not Found"),
 
     // auth
     PASSWORD_MISMATCH(HttpStatus.UNAUTHORIZED, "Password Mismatch"),
