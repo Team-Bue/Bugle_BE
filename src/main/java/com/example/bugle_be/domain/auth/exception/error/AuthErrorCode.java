@@ -9,8 +9,17 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum AuthErrorCode implements ErrorProperty {
 
+    // email
     ALREADY_EMAIL_EXISTS(HttpStatus.CONFLICT, "Already Exists Email"),
-    ALREADY_ACCOUNT_ID_EXISTS(HttpStatus.CONFLICT, "Already AccountId Exists");
+    EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "Email Not Found"),
+
+    // accountId
+    ALREADY_ACCOUNT_ID_EXISTS(HttpStatus.CONFLICT, "Already AccountId Exists"),
+    ACCOUNT_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "Account Id Not Found"),
+
+    // auth
+    PASSWORD_MISMATCH(HttpStatus.UNAUTHORIZED, "Password Mismatch"),
+    LOGIN_IDENTIFIER_NOT_PROVIDED(HttpStatus.BAD_REQUEST, "Login Identifier Not Provided");
 
     private final HttpStatus status;
     private final String message;

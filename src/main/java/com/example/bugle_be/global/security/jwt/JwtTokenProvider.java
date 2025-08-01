@@ -2,6 +2,7 @@ package com.example.bugle_be.global.security.jwt;
 
 import com.example.bugle_be.domain.auth.domain.RefreshToken;
 import com.example.bugle_be.domain.auth.domain.repository.RefreshTokenRepository;
+import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.bugle_be.global.exception.ExpiredJwt;
 import com.example.bugle_be.global.exception.InvalidJwt;
 import com.example.bugle_be.global.security.auth.AuthDetailsService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -49,11 +51,11 @@ public class JwtTokenProvider {
             .compact();
     }
 
-    public String generateAccessToken(String email) {
+    private String generateAccessToken(String email) {
         return generateToken(email, ACCESS, jwtProperties.accessExp());
     }
 
-    public String generateRefreshToken(String email) {
+    private String generateRefreshToken(String email) {
         String refreshToken = generateToken(email, REFRESH, jwtProperties.refreshExp());
 
         refreshTokenRepository.save(
@@ -65,6 +67,15 @@ public class JwtTokenProvider {
         );
 
         return refreshToken;
+    }
+
+    public TokenResponse createToken(String email) {
+        return TokenResponse.builder()
+            .accessToken(generateAccessToken(email))
+            .refreshToken(generateRefreshToken(email))
+            .accessExp(LocalDateTime.now().plusSeconds(jwtProperties.accessExp()))
+            .refreshExp(LocalDateTime.now().plusSeconds(jwtProperties.refreshExp()))
+            .build();
     }
 
     public String parseToken(String bearerToken) {

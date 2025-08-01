@@ -21,7 +21,7 @@ public record SignupRequest(
         message = "아이디는 소문자, 숫자, 언더바(_), 점(.)만 사용 가능하며, 시작과 끝은 점(.)일 수 없습니다."
     )
     @NotBlank(message = "아이디는 필수 입력 항목입니다.")
-    @Size(min = 4, max = 20, message = "ID는 최소 4자 이상, 20자 이하로 입력해주세요.")
+    @Size(min = 4, max = 20, message = "아이디는 최소 4자 이상, 20자 이하로 입력해주세요.")
     String accountId,
 
     @Pattern(
