@@ -22,5 +22,4 @@ public class BaseTimeEntity extends BaseIdEntity {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
 }

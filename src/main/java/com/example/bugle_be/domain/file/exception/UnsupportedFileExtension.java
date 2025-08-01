@@ -10,5 +10,4 @@ public class UnsupportedFileExtension extends BugleException {
     private UnsupportedFileExtension() {
         super(FileErrorCode.UNSUPPORTED_FILE_EXTENSION);
     }
-
 }

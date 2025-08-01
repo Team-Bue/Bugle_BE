@@ -29,5 +29,4 @@ public class S3Service {
 
         return s3Presigner.presignPutObject(presignedRequest).url();
     }
-
 }

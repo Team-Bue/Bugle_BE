@@ -10,5 +10,4 @@ public class FileNotFound extends BugleException {
     private FileNotFound() {
         super(FileErrorCode.FILE_NOT_FOUND);
     }
-
 }

@@ -19,5 +19,4 @@ public enum FileType {
         String extension = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
         return extensions.contains(extension);
     }
-
 }

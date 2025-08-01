@@ -21,5 +21,4 @@ public class RefreshToken {
 
     @TimeToLive
     private Long ttl;
-
 }

@@ -44,5 +44,4 @@ public class FileUploadService {
     private String generateObjectKey(FileType fileType, String fileName) {
         return fileType.getPath().toLowerCase() + "/" + UUID.randomUUID() + "/" + fileName;
     }
-
 }
