@@ -27,7 +27,7 @@ public class LoginService {
         User user = getUser(request);
         validatePassword(request.password(), user.getPassword());
 
-        return jwtTokenProvider.createToken(request.email());
+        return jwtTokenProvider.createToken(user.getEmail());
     }
 
     private User getUser(LoginRequest request) {
