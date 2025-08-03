@@ -6,7 +6,7 @@ import com.example.bugle_be.domain.auth.presentation.dto.request.SignupRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
-import com.example.bugle_be.global.image.DefaultImageProperties;
+import com.example.bugle_be.domain.user.profile.DefaultImageProperties;
 import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
