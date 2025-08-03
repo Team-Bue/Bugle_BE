@@ -15,8 +15,14 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     private String title;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(500)")
+    @Column(nullable = false, columnDefinition = "VARCHAR(300)")
     private String content;
+
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String country;
+
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String region;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String imageUrl;
