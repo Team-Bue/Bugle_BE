@@ -26,5 +26,4 @@ public class User extends BaseIdEntity {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String profileImageUrl;
-    // 포스트 연관관계 설정
 }
