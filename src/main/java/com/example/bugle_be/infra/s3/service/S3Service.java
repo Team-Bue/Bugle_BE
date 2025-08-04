@@ -1,10 +1,14 @@
 package com.example.bugle_be.infra.s3.service;
 
+import com.example.bugle_be.infra.s3.exception.InternalS3Error;
+import com.example.bugle_be.infra.s3.exception.ObjectKeyNotFound;
 import com.example.bugle_be.infra.s3.properties.S3Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
@@ -31,5 +35,24 @@ public class S3Service {
             .build();
 
         return s3Presigner.presignPutObject(presignedRequest).url();
+    }
+
+    private void validateObjectExists(String objectKey) {
+        try {
+            s3Client.headObject(
+                req -> req
+                    .bucket(s3Properties.bucket())
+                    .key(objectKey)
+            );
+        } catch (NoSuchKeyException e) {
+            throw ObjectKeyNotFound.EXCEPTION;
+        } catch (S3Exception e) {
+            throw InternalS3Error.EXCEPTION;
+        }
+    }
+
+    public String generateUrl(String objectKey) {
+        validateObjectExists(objectKey);
+        return "https://" + s3Properties.bucket() + ".s3." + s3Properties.region() + ".amazonaws.com/" + objectKey;
     }
 }
