@@ -25,7 +25,7 @@ public class Post extends BaseTimeEntity {
     private String region;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
-    private String imageUrl;
+    private String fileUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
