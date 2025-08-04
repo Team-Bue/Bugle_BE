@@ -5,7 +5,9 @@ import com.example.bugle_be.domain.file.exception.UnsupportedFileExtension;
 import com.example.bugle_be.domain.file.presentation.dto.request.FileUploadRequest;
 import com.example.bugle_be.domain.file.presentation.dto.response.FileUploadUrlResponse;
 import com.example.bugle_be.domain.file.type.FileType;
-import com.example.bugle_be.infra.s3.S3Service;
+import com.example.bugle_be.domain.user.domain.User;
+import com.example.bugle_be.domain.user.facacde.UserFacade;
+import com.example.bugle_be.infra.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,16 @@ import java.util.UUID;
 public class FileUploadService {
 
     private final S3Service s3Service;
+    private final UserFacade userFacade;
     private static final Duration DEFAULT_DURATION = Duration.ofMinutes(2);
 
     public FileUploadUrlResponse execute(FileUploadRequest request) {
+        User user = userFacade.getCurrentUser();
+
         validateFileName(request.fileName());
         validateExtension(request.fileName(), request.fileType());
 
-        String objectKey = generateObjectKey(request.fileType(), request.fileName());
+        String objectKey = generateObjectKey(request.fileType(), request.fileName(), user.getId());
         String url = s3Service.createUploadPresignedUrl(objectKey, DEFAULT_DURATION).toString();
 
         return new FileUploadUrlResponse(objectKey, url);
@@ -41,7 +46,7 @@ public class FileUploadService {
         }
     }
 
-    private String generateObjectKey(FileType fileType, String fileName) {
-        return fileType.getPath().toLowerCase() + "/" + UUID.randomUUID() + "/" + fileName;
+    private String generateObjectKey(FileType fileType, String fileName, Long userId) {
+        return fileType.getPath().toLowerCase() + "/" + userId + "/" + UUID.randomUUID() + "/" + fileName;
     }
 }
