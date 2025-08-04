@@ -16,6 +16,7 @@ public class CreatePostService {
 
     private final UserFacade userFacade;
     private final PostRepository postRepository;
+    private final S3Service s3Service;
 
     @Transactional
     public void execute(PostRequest request) {
@@ -27,7 +28,7 @@ public class CreatePostService {
                 .content(request.content())
                 .country(request.country())
                 .region(request.region())
-                .imageUrl(request.objectKey())
+                .fileUrl(s3Service.generateUrl(request.objectKey()))
                 .user(user)
                 .build()
         );
