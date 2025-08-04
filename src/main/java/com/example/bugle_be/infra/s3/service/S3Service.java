@@ -13,7 +13,11 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,8 +55,15 @@ public class S3Service {
         }
     }
 
+    private String encodeObjectKey(String objectKey) {
+        return Arrays.stream(objectKey.split("/"))
+            .map(part -> URLEncoder.encode(part, StandardCharsets.UTF_8))
+            .collect(Collectors.joining("/"));
+    }
+
     public String generateUrl(String objectKey) {
         validateObjectExists(objectKey);
-        return "https://" + s3Properties.bucket() + ".s3." + s3Properties.region() + ".amazonaws.com/" + objectKey;
+        String encodedKey = encodeObjectKey(objectKey);
+        return "https://" + s3Properties.bucket() + ".s3." + s3Properties.region() + ".amazonaws.com/" + encodedKey;
     }
 }
