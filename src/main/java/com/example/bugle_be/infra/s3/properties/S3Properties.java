@@ -1,4 +1,4 @@
-package com.example.bugle_be.infra.s3;
+package com.example.bugle_be.infra.s3.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

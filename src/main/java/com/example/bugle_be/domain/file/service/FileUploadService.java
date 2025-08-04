@@ -5,7 +5,7 @@ import com.example.bugle_be.domain.file.exception.UnsupportedFileExtension;
 import com.example.bugle_be.domain.file.presentation.dto.request.FileUploadRequest;
 import com.example.bugle_be.domain.file.presentation.dto.response.FileUploadUrlResponse;
 import com.example.bugle_be.domain.file.type.FileType;
-import com.example.bugle_be.infra.s3.S3Service;
+import com.example.bugle_be.infra.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
