@@ -12,9 +12,6 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Post extends BaseTimeEntity {
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(50)")
-    private String title;
-
     @Column(nullable = false, columnDefinition = "VARCHAR(300)")
     private String content;
 
