@@ -29,6 +29,7 @@ public class QueryPostListService {
                 .country(post.getCountry())
                 .region(post.getRegion())
                 .fileUrl(post.getFileUrl())
+                .content(post.getContent())
                 .build())
             .toList();
 

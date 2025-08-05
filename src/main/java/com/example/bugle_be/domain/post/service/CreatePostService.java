@@ -24,7 +24,6 @@ public class CreatePostService {
 
         postRepository.save(
             Post.builder()
-                .title(request.title())
                 .content(request.content())
                 .country(request.country())
                 .region(request.region())
