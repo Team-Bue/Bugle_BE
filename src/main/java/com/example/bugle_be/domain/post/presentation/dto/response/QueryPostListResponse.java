@@ -14,6 +14,7 @@ public record QueryPostListResponse(
         String profileImageUrl,
         String country,
         String region,
-        String fileUrl
+        String fileUrl,
+        String content
     ) {}
 }
