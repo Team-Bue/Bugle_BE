@@ -3,7 +3,6 @@ package com.example.bugle_be.domain.auth.presentation.dto.request;
 import jakarta.validation.constraints.*;
 
 public record SignupRequest(
-
     @Email(message = "올바른 형식의 이메일을 입력해주세요.")
     @NotBlank(message = "이메일은 필수 입력 항목입니다.")
     String email,

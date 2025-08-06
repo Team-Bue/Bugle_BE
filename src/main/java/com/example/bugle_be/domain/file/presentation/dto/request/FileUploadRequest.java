@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record FileUploadRequest(
-    @NotNull FileType fileType,
-    @NotBlank String fileName
+    @NotNull
+    FileType fileType,
+
+    @NotBlank
+    String fileName
 ) {
 }

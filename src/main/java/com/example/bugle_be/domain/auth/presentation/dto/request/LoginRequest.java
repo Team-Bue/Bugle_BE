@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record LoginRequest(
-
     @Email(message = "올바른 형식의 이메일을 입력해주세요.")
     String email,
 

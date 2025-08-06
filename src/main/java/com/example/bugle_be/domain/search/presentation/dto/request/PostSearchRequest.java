@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record PostSearchRequest(
-
     @NotNull(message = "검색 타입은 필수입니다.")
     SearchType type,
 

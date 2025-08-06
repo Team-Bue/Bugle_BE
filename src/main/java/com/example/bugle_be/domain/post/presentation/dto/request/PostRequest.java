@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record PostRequest(
-
     @NotBlank
     @Size(max = 300, message = "내용은 300자 이내로 작성해주세요.")
     String content,
