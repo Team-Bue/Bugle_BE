@@ -1,5 +1,6 @@
 package com.example.bugle_be.domain.search.service;
 
+import com.example.bugle_be.domain.search.presentation.dto.request.UserSearchRequest;
 import com.example.bugle_be.domain.search.presentation.dto.response.UserSearchResponse;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
 import com.example.bugle_be.domain.user.facacde.UserFacade;
@@ -17,9 +18,9 @@ public class UserSearchService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public UserSearchResponse execute(String keyword) {
+    public UserSearchResponse execute(UserSearchRequest request) {
         userFacade.getCurrentUser();
-        List<UserSearchResponse.UserResponse> users = userRepository.getAllByKeyword(keyword);
+        List<UserSearchResponse.UserResponse> users = userRepository.getAllByKeyword(request.keyword());
 
         return new UserSearchResponse(users);
     }
