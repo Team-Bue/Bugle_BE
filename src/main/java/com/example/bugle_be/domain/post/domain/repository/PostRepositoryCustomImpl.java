@@ -21,9 +21,9 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     @Override
     public List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(SearchType type, String keyword) {
         BooleanExpression condition = switch (type) {
-            case CONTENT -> post.content.contains(keyword);
-            case LOCATION -> post.country.contains(keyword)
-                .or(post.region.contains(keyword));
+            case CONTENT -> post.content.containsIgnoreCase(keyword);
+            case LOCATION -> post.country.containsIgnoreCase(keyword)
+                .or(post.region.containsIgnoreCase(keyword));
         };
 
         return queryFactory
