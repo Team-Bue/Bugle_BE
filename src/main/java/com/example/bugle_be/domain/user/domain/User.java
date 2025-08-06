@@ -1,6 +1,6 @@
 package com.example.bugle_be.domain.user.domain;
 
-import com.example.bugle_be.global.entity.BaseIdEntity;
+import com.example.bugle_be.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @Entity(name = "tbl_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class User extends BaseIdEntity {
+public class User extends BaseTimeEntity {
 
     @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
     private String email;
