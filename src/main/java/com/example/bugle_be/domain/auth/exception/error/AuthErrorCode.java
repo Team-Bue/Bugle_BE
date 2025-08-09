@@ -19,7 +19,10 @@ public enum AuthErrorCode implements ErrorProperty {
 
     // auth
     PASSWORD_MISMATCH(HttpStatus.UNAUTHORIZED, "Password Mismatch"),
-    LOGIN_IDENTIFIER_NOT_PROVIDED(HttpStatus.BAD_REQUEST, "Login Identifier Not Provided");
+    LOGIN_IDENTIFIER_NOT_PROVIDED(HttpStatus.BAD_REQUEST, "Login Identifier Not Provided"),
+
+    // refreshToken
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh Token Not Found");
 
     private final HttpStatus status;
     private final String message;
