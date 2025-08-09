@@ -6,6 +6,7 @@ import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.bugle_be.domain.auth.service.LoginService;
 import com.example.bugle_be.domain.auth.service.LogoutService;
 import com.example.bugle_be.domain.auth.service.SignupService;
+import com.example.bugle_be.domain.auth.service.WithdrawService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class AuthController {
     private final SignupService signupService;
     private final LoginService loginService;
     private final LogoutService logoutService;
+    private final WithdrawService withdrawService;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,5 +38,11 @@ public class AuthController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout() {
         logoutService.execute();
+    }
+
+    @DeleteMapping("/withdraw")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void withdraw() {
+        withdrawService.execute();
     }
 }
