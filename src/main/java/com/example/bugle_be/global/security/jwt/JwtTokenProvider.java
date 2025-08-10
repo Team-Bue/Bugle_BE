@@ -7,6 +7,7 @@ import com.example.bugle_be.global.exception.ExpiredJwt;
 import com.example.bugle_be.global.exception.InvalidJwt;
 import com.example.bugle_be.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -103,6 +104,15 @@ public class JwtTokenProvider {
             } else {
                 throw InvalidJwt.EXCEPTION;
             }
+        }
+    }
+
+    public boolean validateRefreshToken(String token) {
+        try {
+            Claims claims = getClaims(token);
+            return REFRESH.equals(claims.get("type"));
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
         }
     }
 

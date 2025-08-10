@@ -32,7 +32,9 @@ public class ReissueService {
         if (token == null) throw InvalidRefreshToken.EXCEPTION;
 
         String parseToken = jwtTokenProvider.parseToken(token);
-        if (parseToken == null) throw InvalidRefreshToken.EXCEPTION;
+        if (parseToken == null || !jwtTokenProvider.validateRefreshToken(parseToken)) {
+            throw InvalidRefreshToken.EXCEPTION;
+        }
 
         return parseToken;
     }
