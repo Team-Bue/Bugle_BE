@@ -22,7 +22,8 @@ public enum AuthErrorCode implements ErrorProperty {
     LOGIN_IDENTIFIER_NOT_PROVIDED(HttpStatus.BAD_REQUEST, "Login Identifier Not Provided"),
 
     // refreshToken
-    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh Token Not Found");
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh Token Not Found"),
+    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Refresh Token");
 
     private final HttpStatus status;
     private final String message;
