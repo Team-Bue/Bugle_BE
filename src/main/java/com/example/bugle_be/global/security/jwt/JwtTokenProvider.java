@@ -43,11 +43,11 @@ public class JwtTokenProvider {
 
     private String generateToken(String email, String type, Long exp) {
         return Jwts.builder()
-            .header().add("type", type).and()
             .subject(email)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(exp)))
             .signWith(secretKey, Jwts.SIG.HS256)
+            .claim("type", type)
             .compact();
     }
 
@@ -103,6 +103,15 @@ public class JwtTokenProvider {
             } else {
                 throw InvalidJwt.EXCEPTION;
             }
+        }
+    }
+
+    public boolean validateRefreshToken(String token) {
+        try {
+            Claims claims = getClaims(token);
+            return REFRESH.equals(claims.get("type"));
+        } catch (Exception e) {
+            return false;
         }
     }
 

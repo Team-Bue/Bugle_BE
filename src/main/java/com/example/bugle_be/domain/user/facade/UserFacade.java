@@ -1,4 +1,4 @@
-package com.example.bugle_be.domain.user.facacde;
+package com.example.bugle_be.domain.user.facade;
 
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
