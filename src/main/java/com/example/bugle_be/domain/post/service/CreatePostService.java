@@ -4,7 +4,7 @@ import com.example.bugle_be.domain.post.domain.Post;
 import com.example.bugle_be.domain.post.domain.repository.PostRepository;
 import com.example.bugle_be.domain.post.presentation.dto.request.PostRequest;
 import com.example.bugle_be.domain.user.domain.User;
-import com.example.bugle_be.domain.user.facacde.UserFacade;
+import com.example.bugle_be.domain.user.facade.UserFacade;
 import com.example.bugle_be.infra.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@ import com.example.bugle_be.domain.file.presentation.dto.request.FileUploadReque
 import com.example.bugle_be.domain.file.presentation.dto.response.FileUploadUrlResponse;
 import com.example.bugle_be.domain.file.type.FileType;
 import com.example.bugle_be.domain.user.domain.User;
-import com.example.bugle_be.domain.user.facacde.UserFacade;
+import com.example.bugle_be.domain.user.facade.UserFacade;
 import com.example.bugle_be.infra.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
