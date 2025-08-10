@@ -7,7 +7,6 @@ import com.example.bugle_be.global.exception.ExpiredJwt;
 import com.example.bugle_be.global.exception.InvalidJwt;
 import com.example.bugle_be.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -44,11 +43,11 @@ public class JwtTokenProvider {
 
     private String generateToken(String email, String type, Long exp) {
         return Jwts.builder()
-            .header().add("type", type).and()
             .subject(email)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(exp)))
             .signWith(secretKey, Jwts.SIG.HS256)
+            .claim("type", type)
             .compact();
     }
 
@@ -111,7 +110,7 @@ public class JwtTokenProvider {
         try {
             Claims claims = getClaims(token);
             return REFRESH.equals(claims.get("type"));
-        } catch (JwtException | IllegalArgumentException e) {
+        } catch (Exception e) {
             return false;
         }
     }
