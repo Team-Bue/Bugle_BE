@@ -40,15 +40,13 @@ public class MailService {
 
     @Transactional
     public void verifyCode(VerifyCodeRequest request) {
-        String storedCode = verificationCodeRepository.findById(request.email())
-            .orElseThrow(() -> EmailNotFound.EXCEPTION)
-            .getCode();
+        boolean deleted =
+            verificationCodeRepository.deleteByEmailAndCode(request.email(), request.code()) > 0;
 
-        if (!storedCode.equals(request.code())) {
-            throw CodeMisMatch.EXCEPTION;
+        if (!deleted) {
+            boolean emailExists = verificationCodeRepository.existsById(request.email());
+            throw emailExists ? CodeMisMatch.EXCEPTION : EmailNotFound.EXCEPTION;
         }
-
-        verificationCodeRepository.deleteById(request.email());
     }
 
     private String createCode() {
