@@ -35,9 +35,14 @@ public class SecurityConfig {
             .formLogin(AbstractHttpConfigurer::disable)
             .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                // auth
                 .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/reissue").permitAll()
+
+                // mail
+                .requestMatchers(HttpMethod.POST, "/mail/send").permitAll()
+                .requestMatchers(HttpMethod.POST, "/mail/verify").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class)
