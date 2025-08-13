@@ -1,4 +1,4 @@
-package com.example.bugle_be.global.mail.service;
+package com.example.bugle_be.infra.mail;
 
 import com.example.bugle_be.domain.mail.exception.MailSendFailed;
 import lombok.RequiredArgsConstructor;
