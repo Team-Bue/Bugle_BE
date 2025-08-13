@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
+
 @Service
 @RequiredArgsConstructor
 public class MailService {
@@ -18,6 +20,7 @@ public class MailService {
     private final VerificationCodeRepository verificationCodeRepository;
     private final MailSenderService mailSenderService;
 
+    private static final SecureRandom random = new SecureRandom();
     private static final Long VERIFICATION_CODE_TTL = 3000L;
 
     @Transactional
@@ -49,6 +52,7 @@ public class MailService {
     }
 
     private String createCode() {
-        return String.format("%06d", (int) (Math.random() * 1000000));
+        int code = random.nextInt(1_000_000);
+        return String.format("%06d", code);
     }
 }
