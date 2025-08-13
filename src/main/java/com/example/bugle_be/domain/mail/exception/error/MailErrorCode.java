@@ -9,9 +9,14 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum MailErrorCode implements ErrorProperty {
 
+    // code
     CODE_MISMATCH(HttpStatus.BAD_REQUEST, "Code Mismatch"),
 
-    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Mail Send failed");
+    // mail
+    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Mail Send failed"),
+
+    // hash
+    HASHING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Hashing Failed");
 
     private final HttpStatus status;
     private final String message;
