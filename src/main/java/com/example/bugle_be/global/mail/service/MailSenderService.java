@@ -1,6 +1,8 @@
 package com.example.bugle_be.global.mail.service;
 
+import com.example.bugle_be.domain.mail.exception.MailSendFailed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ public class MailSenderService {
         message.setSubject("인증 코드");
         message.setText(code);
 
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+        } catch (MailException e) {
+            throw MailSendFailed.EXCEPTION;
+        }
     }
 }
