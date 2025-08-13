@@ -21,7 +21,7 @@ public class MailService {
     private final MailSenderService mailSenderService;
 
     private static final SecureRandom random = new SecureRandom();
-    private static final Long VERIFICATION_CODE_TTL = 3000L;
+    private static final Long VERIFICATION_CODE_TTL = 300L;
 
     @Transactional
     public void sendCode(SendCodeRequest request) {
