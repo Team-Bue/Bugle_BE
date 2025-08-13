@@ -8,7 +8,7 @@ import com.example.bugle_be.domain.mail.exception.HashingFailed;
 import com.example.bugle_be.domain.mail.presentation.dto.request.SendCodeRequest;
 import com.example.bugle_be.domain.mail.presentation.dto.request.VerifyCodeRequest;
 import com.example.bugle_be.domain.mail.service.properties.MailProperties;
-import com.example.bugle_be.global.mail.service.MailSenderService;
+import com.example.bugle_be.infra.mail.service.MailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
