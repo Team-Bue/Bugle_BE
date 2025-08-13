@@ -64,7 +64,7 @@ public class MailService {
     private String hash(String code) {
         try {
             Mac mac = Mac.getInstance(ALGORITHM);
-            mac.init(new SecretKeySpec(mailSecretProperties.secret().getBytes(), ALGORITHM));
+            mac.init(new SecretKeySpec(mailProperties.secret().getBytes(), ALGORITHM));
             byte[] hash = mac.doFinal(code.getBytes());
             return Base64.getEncoder().encodeToString(hash);
         } catch (Exception e) {
