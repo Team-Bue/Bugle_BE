@@ -23,7 +23,7 @@ public class MailController {
 
     @PostMapping("/verify")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void verifyCode(@RequestBody @Valid VerifyCodeRequest request) {
-        mailService.verifyCode(request);
+    public String verifyCode(@RequestBody @Valid VerifyCodeRequest request) {
+        return mailService.verifyCode(request);
     }
 }

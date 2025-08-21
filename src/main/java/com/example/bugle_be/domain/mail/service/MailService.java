@@ -2,7 +2,9 @@ package com.example.bugle_be.domain.mail.service;
 
 import com.example.bugle_be.domain.auth.exception.EmailNotFound;
 import com.example.bugle_be.domain.mail.domain.VerificationCode;
+import com.example.bugle_be.domain.mail.domain.VerificationToken;
 import com.example.bugle_be.domain.mail.domain.repository.VerificationCodeRepository;
+import com.example.bugle_be.domain.mail.domain.repository.VerificationTokenRepository;
 import com.example.bugle_be.domain.mail.exception.CodeMisMatch;
 import com.example.bugle_be.domain.mail.exception.HashingFailed;
 import com.example.bugle_be.domain.mail.presentation.dto.request.SendCodeRequest;
@@ -17,17 +19,19 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class MailService {
 
     private final VerificationCodeRepository verificationCodeRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
     private final MailSenderService mailSenderService;
 
     private static final SecureRandom random = new SecureRandom();
     private static final String ALGORITHM = "HmacSHA256";
-    private static final Long VERIFICATION_CODE_TTL = 300L;
+    private static final Long VERIFICATION_TTL = 300L;
 
     @Value("${spring.mail.security.secret}")
     private String secret;
@@ -40,7 +44,7 @@ public class MailService {
             VerificationCode.builder()
                 .email(request.email())
                 .code(hash(code))
-                .ttl(VERIFICATION_CODE_TTL)
+                .ttl(VERIFICATION_TTL)
                 .build()
         );
 
@@ -48,7 +52,7 @@ public class MailService {
     }
 
     @Transactional
-    public void verifyCode(VerifyCodeRequest request) {
+    public String verifyCode(VerifyCodeRequest request) {
         boolean deleted =
             verificationCodeRepository.deleteByEmailAndCode(request.email(), hash(request.code())) > 0;
 
@@ -56,6 +60,18 @@ public class MailService {
             boolean emailExists = verificationCodeRepository.existsById(request.email());
             throw emailExists ? CodeMisMatch.EXCEPTION : EmailNotFound.EXCEPTION;
         }
+
+        String token = UUID.randomUUID().toString();
+
+        verificationTokenRepository.save(
+            VerificationToken.builder()
+                .email(request.email())
+                .token(token)
+                .ttl(VERIFICATION_TTL)
+                .build()
+        );
+
+        return token;
     }
 
     private String createCode() {
