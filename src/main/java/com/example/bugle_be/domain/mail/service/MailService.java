@@ -7,9 +7,9 @@ import com.example.bugle_be.domain.mail.exception.CodeMisMatch;
 import com.example.bugle_be.domain.mail.exception.HashingFailed;
 import com.example.bugle_be.domain.mail.presentation.dto.request.SendCodeRequest;
 import com.example.bugle_be.domain.mail.presentation.dto.request.VerifyCodeRequest;
-import com.example.bugle_be.domain.mail.service.properties.MailProperties;
 import com.example.bugle_be.infra.mail.MailSenderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +24,13 @@ public class MailService {
 
     private final VerificationCodeRepository verificationCodeRepository;
     private final MailSenderService mailSenderService;
-    private final MailProperties mailProperties;
 
     private static final SecureRandom random = new SecureRandom();
     private static final String ALGORITHM = "HmacSHA256";
     private static final Long VERIFICATION_CODE_TTL = 300L;
+
+    @Value("${spring.mail.security.secret}")
+    private String secret;
 
     @Transactional
     public void sendCode(SendCodeRequest request) {
@@ -64,7 +66,7 @@ public class MailService {
     private String hash(String code) {
         try {
             Mac mac = Mac.getInstance(ALGORITHM);
-            mac.init(new SecretKeySpec(mailProperties.secret().getBytes(), ALGORITHM));
+            mac.init(new SecretKeySpec(secret.getBytes(), ALGORITHM));
             byte[] hash = mac.doFinal(code.getBytes());
             return Base64.getEncoder().encodeToString(hash);
         } catch (Exception e) {
