@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/reissue").permitAll()
+                .requestMatchers(HttpMethod.PATCH, "/auth/password").permitAll()
 
                 // mail
                 .requestMatchers(HttpMethod.POST, "/mail/send").permitAll()

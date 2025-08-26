@@ -26,4 +26,8 @@ public class User extends BaseTimeEntity {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String profileImageUrl;
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }

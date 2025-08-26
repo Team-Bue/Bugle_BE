@@ -1,6 +1,7 @@
 package com.example.bugle_be.domain.auth.presentation;
 
 import com.example.bugle_be.domain.auth.presentation.dto.request.LoginRequest;
+import com.example.bugle_be.domain.auth.presentation.dto.request.PasswordResetRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.request.SignupRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.bugle_be.domain.auth.service.*;
@@ -20,6 +21,7 @@ public class AuthController {
     private final LogoutService logoutService;
     private final WithdrawService withdrawService;
     private final ReissueService reissueService;
+    private final PasswordResetService passwordResetService;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,5 +51,11 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     public TokenResponse reissue(HttpServletRequest request) {
         return reissueService.execute(request);
+    }
+
+    @PatchMapping("/password")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void passwordReset(@RequestBody @Valid PasswordResetRequest request) {
+        passwordResetService.execute(request);
     }
 }

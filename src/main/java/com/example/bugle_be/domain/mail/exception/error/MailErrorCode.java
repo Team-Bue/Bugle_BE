@@ -16,7 +16,9 @@ public enum MailErrorCode implements ErrorProperty {
     MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Mail Send failed"),
 
     // hash
-    HASHING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Hashing Failed");
+    HASHING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Hashing Failed"),
+
+    TOKEN_MISMATCH(HttpStatus.UNAUTHORIZED, "Token Mismatch");
 
     private final HttpStatus status;
     private final String message;

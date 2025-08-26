@@ -2,6 +2,7 @@ package com.example.bugle_be.domain.mail.presentation;
 
 import com.example.bugle_be.domain.mail.presentation.dto.request.SendCodeRequest;
 import com.example.bugle_be.domain.mail.presentation.dto.request.VerifyCodeRequest;
+import com.example.bugle_be.domain.mail.presentation.dto.response.VerifyTokenResponse;
 import com.example.bugle_be.domain.mail.service.MailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,8 @@ public class MailController {
     }
 
     @PostMapping("/verify")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void verifyCode(@RequestBody @Valid VerifyCodeRequest request) {
-        mailService.verifyCode(request);
+    @ResponseStatus(HttpStatus.OK)
+    public VerifyTokenResponse verifyCode(@RequestBody @Valid VerifyCodeRequest request) {
+        return mailService.verifyCode(request);
     }
 }
