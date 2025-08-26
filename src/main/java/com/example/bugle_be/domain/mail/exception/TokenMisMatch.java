@@ -8,6 +8,6 @@ public class TokenMisMatch extends BugleException {
     public static final BugleException EXCEPTION = new TokenMisMatch();
 
     private TokenMisMatch() {
-        super(MailErrorCode.CODE_MISMATCH);
+        super(MailErrorCode.TOKEN_MISMATCH);
     }
 }
