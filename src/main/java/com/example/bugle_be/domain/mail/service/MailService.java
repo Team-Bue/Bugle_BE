@@ -7,8 +7,10 @@ import com.example.bugle_be.domain.mail.domain.repository.VerificationCodeReposi
 import com.example.bugle_be.domain.mail.domain.repository.VerificationTokenRepository;
 import com.example.bugle_be.domain.mail.exception.CodeMisMatch;
 import com.example.bugle_be.domain.mail.exception.HashingFailed;
+import com.example.bugle_be.domain.mail.exception.TokenMisMatch;
 import com.example.bugle_be.domain.mail.presentation.dto.request.SendCodeRequest;
 import com.example.bugle_be.domain.mail.presentation.dto.request.VerifyCodeRequest;
+import com.example.bugle_be.domain.mail.presentation.dto.response.VerifyTokenResponse;
 import com.example.bugle_be.infra.mail.MailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,14 +54,15 @@ public class MailService {
     }
 
     @Transactional
-    public String verifyCode(VerifyCodeRequest request) {
-        boolean deleted =
-            verificationCodeRepository.deleteByEmailAndCode(request.email(), hash(request.code())) > 0;
+    public VerifyTokenResponse verifyCode(VerifyCodeRequest request) {
+        VerificationCode code = verificationCodeRepository.findById(request.email())
+            .orElseThrow(() -> EmailNotFound.EXCEPTION);
 
-        if (!deleted) {
-            boolean emailExists = verificationCodeRepository.existsById(request.email());
-            throw emailExists ? CodeMisMatch.EXCEPTION : EmailNotFound.EXCEPTION;
+        if (!code.getCode().equals(hash(request.code()))) {
+            throw CodeMisMatch.EXCEPTION;
         }
+
+        verificationCodeRepository.delete(code);
 
         String token = UUID.randomUUID().toString();
 
@@ -71,7 +74,19 @@ public class MailService {
                 .build()
         );
 
-        return token;
+        return new VerifyTokenResponse(token);
+    }
+
+    @Transactional
+    public void validateToken(String email, String token) {
+        VerificationToken verificationToken = verificationTokenRepository.findById(email)
+            .orElseThrow(() -> EmailNotFound.EXCEPTION);
+
+        if (!verificationToken.getToken().equals(token)) {
+            throw TokenMisMatch.EXCEPTION;
+        }
+
+        verificationTokenRepository.delete(verificationToken);
     }
 
     private String createCode() {

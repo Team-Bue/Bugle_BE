@@ -10,6 +10,9 @@ public record PasswordResetRequest(
     @NotBlank(message = "이메일은 필수 입력 항목입니다.")
     String email,
 
+    @NotBlank(message = "토큰은 필수 입력 항목입니다.")
+    String token,
+
     @Pattern(
         regexp = "^(?=.*[@#!%&*])[a-zA-Z0-9@#!%&*]+$",
         message = "비밀번호는 영어 대소문자, 숫자만 허용되며 @, #, !, %, &, * 중 하나 이상을 포함해야 합니다."
