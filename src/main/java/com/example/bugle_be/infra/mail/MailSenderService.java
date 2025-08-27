@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class MailSenderService {
 
     private final JavaMailSender mailSender;
 
+    @Async
     public void execute(String email, String code) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
