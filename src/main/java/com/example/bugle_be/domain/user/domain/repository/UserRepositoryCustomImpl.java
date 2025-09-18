@@ -36,4 +36,14 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
             .limit(countSize)
             .fetch();
     }
+
+    @Override
+    public Long getAllByKeywordCount(String keyword) {
+        return queryFactory
+            .select(user.count())
+            .from(user)
+            .where(user.accountId.containsIgnoreCase(keyword)
+                .or(user.userName.containsIgnoreCase(keyword)))
+            .fetchOne();
+    }
 }

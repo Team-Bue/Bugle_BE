@@ -7,4 +7,6 @@ import java.util.List;
 public interface UserRepositoryCustom {
 
     List<UserSearchResponse.UserResponse> getAllByKeyword(int page, String keyword);
+
+    Long getAllByKeywordCount(String keyword);
 }
