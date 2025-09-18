@@ -2,6 +2,8 @@ package com.example.bugle_be.domain.post.domain.repository;
 
 import static com.example.bugle_be.domain.post.domain.QPost.post;
 
+import com.example.bugle_be.domain.post.presentation.dto.response.QQueryPostListResponse_PostPreviewResponse;
+import com.example.bugle_be.domain.post.presentation.dto.response.QueryPostListResponse;
 import com.example.bugle_be.domain.search.presentation.dto.SearchType;
 import com.example.bugle_be.domain.search.presentation.dto.response.PostSearchResponse;
 import com.example.bugle_be.domain.search.presentation.dto.response.QPostSearchResponse_PostResponse;
@@ -17,6 +19,26 @@ import java.util.List;
 public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public List<QueryPostListResponse.PostPreviewResponse> getAll(int page) {
+        return queryFactory
+            .select(
+                new QQueryPostListResponse_PostPreviewResponse(
+                    post.id,
+                    post.user.accountId,
+                    post.user.profileImageUrl,
+                    post.country,
+                    post.region,
+                    post.fileUrl,
+                    post.content
+                )
+            )
+            .from(post)
+            .offset((page - 1) * 20L)
+            .limit(20)
+            .fetch();
+    }
 
     @Override
     public List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(SearchType type, String keyword) {
