@@ -7,6 +7,7 @@ import com.example.bugle_be.domain.post.presentation.dto.response.QueryPostListR
 import com.example.bugle_be.domain.search.presentation.dto.SearchType;
 import com.example.bugle_be.domain.search.presentation.dto.response.PostSearchResponse;
 import com.example.bugle_be.domain.search.presentation.dto.response.QPostSearchResponse_PostResponse;
+import com.example.bugle_be.global.util.PageUtil;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 
     @Override
     public List<QueryPostListResponse.PostPreviewResponse> getAll(int page) {
+        int pageSize = PageUtil.POST_DEFAULT_PAGE_SIZE;
+
         return queryFactory
             .select(
                 new QQueryPostListResponse_PostPreviewResponse(
@@ -35,9 +38,17 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 )
             )
             .from(post)
-            .offset((page - 1) * 20L)
-            .limit(20)
+            .offset((long) (page - 1) * pageSize)
+            .limit(pageSize)
             .fetch();
+    }
+
+    @Override
+    public Long getAllCount() {
+        return queryFactory
+            .select(post.count())
+            .from(post)
+            .fetchOne();
     }
 
     @Override
