@@ -28,6 +28,13 @@ public class SearchController {
         return userSearchService.execute(page, request);
     }
 
+    @GetMapping("/users/count")
+    public TotalPageCountResponse userSearchCount(
+        @Valid @ModelAttribute UserSearchRequest request
+    ) {
+        return userSearchService.executeCount(request);
+    }
+
     @GetMapping("/posts")
     public PostSearchResponse postSearch(
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page,
