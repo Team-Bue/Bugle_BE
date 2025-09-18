@@ -12,5 +12,7 @@ public interface PostRepositoryCustom {
 
     Long getAllCount();
 
-    List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(SearchType type, String keyword);
+    List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(int page, SearchType type, String keyword);
+
+    Long getAllByTypeAndKeywordCount(SearchType type, String keyword);
 }

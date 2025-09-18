@@ -52,7 +52,9 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(SearchType type, String keyword) {
+    public List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(int page, SearchType type, String keyword) {
+        int pageSize = PageUtil.POST_DEFAULT_PAGE_SIZE;
+
         BooleanExpression condition = switch (type) {
             case CONTENT -> post.content.containsIgnoreCase(keyword);
             case LOCATION -> post.country.containsIgnoreCase(keyword)
@@ -69,6 +71,25 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
             .from(post)
             .where(condition)
             .orderBy(post.createdAt.desc())
+            .offset((long) (page - 1) * pageSize)
+            .limit(pageSize)
             .fetch();
+    }
+
+    @Override
+    public Long getAllByTypeAndKeywordCount(SearchType type, String keyword) {
+        BooleanExpression condition = switch (type) {
+            case CONTENT -> post.content.containsIgnoreCase(keyword);
+            case LOCATION -> post.country.containsIgnoreCase(keyword)
+                .or(post.region.containsIgnoreCase(keyword));
+        };
+
+        return queryFactory
+            .select(
+                post.count()
+            )
+            .from(post)
+            .where(condition)
+            .fetchOne();
     }
 }
