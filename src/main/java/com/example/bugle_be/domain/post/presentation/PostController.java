@@ -5,6 +5,7 @@ import com.example.bugle_be.domain.post.presentation.dto.response.QueryPostListR
 import com.example.bugle_be.domain.post.service.CreatePostService;
 import com.example.bugle_be.domain.post.service.QueryPostListService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,9 @@ public class PostController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public QueryPostListResponse queryPostList() {
-        return queryPostListService.execute();
+    public QueryPostListResponse queryPostList(
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page
+    ) {
+        return queryPostListService.execute(page);
     }
 }
