@@ -4,6 +4,7 @@ import com.example.bugle_be.domain.post.presentation.dto.request.PostRequest;
 import com.example.bugle_be.domain.post.presentation.dto.response.QueryPostListResponse;
 import com.example.bugle_be.domain.post.service.CreatePostService;
 import com.example.bugle_be.domain.post.service.QueryPostListService;
+import com.example.bugle_be.global.dto.TotalPageCountResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +31,11 @@ public class PostController {
         @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page
     ) {
         return queryPostListService.execute(page);
+    }
+
+    @GetMapping("/count")
+    @ResponseStatus(HttpStatus.OK)
+    public TotalPageCountResponse queryPostListCount() {
+        return queryPostListService.executeCount();
     }
 }
