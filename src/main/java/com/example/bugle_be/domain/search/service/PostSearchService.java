@@ -24,6 +24,7 @@ public class PostSearchService {
         return new PostSearchResponse(posts);
     }
 
+    @Transactional(readOnly = true)
     public TotalPageCountResponse executeCount(PostSearchRequest request) {
         int count = PageUtil.getTotalPageCount(
             postRepository.getAllByTypeAndKeywordCount(request.type(), request.keyword()), PageUtil.POST_DEFAULT_PAGE_SIZE

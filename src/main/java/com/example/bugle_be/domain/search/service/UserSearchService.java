@@ -24,6 +24,7 @@ public class UserSearchService {
         return new UserSearchResponse(users);
     }
 
+    @Transactional(readOnly = true)
     public TotalPageCountResponse executeCount(UserSearchRequest request) {
         int count = PageUtil.getTotalPageCount(
             userRepository.getAllByKeywordCount(request.keyword()),

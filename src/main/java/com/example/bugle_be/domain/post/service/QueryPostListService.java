@@ -23,6 +23,7 @@ public class QueryPostListService {
         return new QueryPostListResponse(posts);
     }
 
+    @Transactional(readOnly = true)
     public TotalPageCountResponse executeCount() {
         int count = PageUtil.getTotalPageCount(
             postRepository.getAllCount(), PageUtil.POST_DEFAULT_PAGE_SIZE
