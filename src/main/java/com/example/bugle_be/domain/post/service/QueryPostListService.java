@@ -15,19 +15,8 @@ public class QueryPostListService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public QueryPostListResponse execute() {
-        List<QueryPostListResponse.PostPreviewResponse> posts = postRepository.findAll()
-            .stream()
-            .map(post -> QueryPostListResponse.PostPreviewResponse.builder()
-                .id(post.getId())
-                .accountId(post.getUser().getAccountId())
-                .profileImageUrl(post.getUser().getProfileImageUrl())
-                .country(post.getCountry())
-                .region(post.getRegion())
-                .fileUrl(post.getFileUrl())
-                .content(post.getContent())
-                .build())
-            .toList();
+    public QueryPostListResponse execute(int page) {
+        List<QueryPostListResponse.PostPreviewResponse> posts = postRepository.getAll(page);
 
         return new QueryPostListResponse(posts);
     }
