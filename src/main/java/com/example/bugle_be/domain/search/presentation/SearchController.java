@@ -22,9 +22,10 @@ public class SearchController {
 
     @GetMapping("/users")
     public UserSearchResponse userSearch(
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page,
         @Valid @ModelAttribute UserSearchRequest request
     ) {
-        return userSearchService.execute(request);
+        return userSearchService.execute(page, request);
     }
 
     @GetMapping("/posts")

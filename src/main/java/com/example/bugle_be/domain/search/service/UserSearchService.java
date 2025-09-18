@@ -16,8 +16,8 @@ public class UserSearchService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public UserSearchResponse execute(UserSearchRequest request) {
-        List<UserSearchResponse.UserResponse> users = userRepository.getAllByKeyword(request.keyword());
+    public UserSearchResponse execute(int page, UserSearchRequest request) {
+        List<UserSearchResponse.UserResponse> users = userRepository.getAllByKeyword(page, request.keyword());
 
         return new UserSearchResponse(users);
     }

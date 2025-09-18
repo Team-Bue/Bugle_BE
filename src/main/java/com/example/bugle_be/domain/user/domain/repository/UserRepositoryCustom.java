@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserRepositoryCustom {
 
-    List<UserSearchResponse.UserResponse> getAllByKeyword(String keyword);
+    List<UserSearchResponse.UserResponse> getAllByKeyword(int page, String keyword);
 }
