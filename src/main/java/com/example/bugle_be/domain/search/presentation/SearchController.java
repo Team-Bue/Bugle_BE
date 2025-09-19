@@ -10,8 +10,10 @@ import com.example.bugle_be.global.dto.TotalPageCountResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/search")
 @RequiredArgsConstructor
