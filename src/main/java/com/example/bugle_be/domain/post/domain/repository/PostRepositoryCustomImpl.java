@@ -38,6 +38,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 )
             )
             .from(post)
+            .orderBy(post.createdAt.desc(), post.id.desc())
             .offset((long) (page - 1) * pageSize)
             .limit(pageSize)
             .fetch();
@@ -70,7 +71,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
             )
             .from(post)
             .where(condition)
-            .orderBy(post.createdAt.desc())
+            .orderBy(post.createdAt.desc(), post.id.desc())
             .offset((long) (page - 1) * pageSize)
             .limit(pageSize)
             .fetch();
