@@ -3,6 +3,9 @@ package com.example.bugle_be.global.security;
 import com.example.bugle_be.global.error.GlobalExceptionFilter;
 import com.example.bugle_be.global.security.jwt.JwtFilter;
 import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
+import com.example.bugle_be.infra.oauth.handler.Oauth2FailureHandler;
+import com.example.bugle_be.infra.oauth.handler.Oauth2SuccessHandler;
+import com.example.bugle_be.infra.oauth.service.CustomOauth2UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -28,12 +31,26 @@ public class SecurityConfig {
     private final ObjectMapper objectMapper;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(
+        HttpSecurity http, CustomOauth2UserService customUserService,
+        Oauth2SuccessHandler successHandler, Oauth2FailureHandler failureHandler
+    ) throws Exception {
         return http
             .csrf(CsrfConfigurer::disable)
             .cors(CorsConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
-            .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(configurer -> configurer
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .userInfoEndpoint(userinfo -> userinfo.userService(customUserService))
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
+                .redirectionEndpoint(
+                    endpoint -> endpoint
+                        .baseUri("/bugle/oauth2/{registrationId}")
+                )
+            )
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 // auth
                 .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
