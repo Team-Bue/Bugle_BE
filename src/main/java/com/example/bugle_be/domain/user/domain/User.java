@@ -1,9 +1,11 @@
 package com.example.bugle_be.domain.user.domain;
 
 import com.example.bugle_be.global.entity.BaseTimeEntity;
+import com.example.bugle_be.global.util.ImageProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Builder
@@ -24,6 +26,7 @@ public class User extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(20)")
     private String userName;
 
+    @ColumnDefault(ImageProperty.DEFAULT_USER_PROFILE_IMAGE)
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String profileImageUrl;
 
