@@ -7,7 +7,6 @@ import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.bugle_be.domain.mail.service.MailService;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
-import com.example.bugle_be.domain.user.profile.DefaultImageProperties;
 import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +20,6 @@ public class SignupService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final DefaultImageProperties defaultImage;
     private final MailService mailService;
 
     @Transactional
@@ -50,7 +48,6 @@ public class SignupService {
                 .password(passwordEncoder.encode(request.password()))
                 .accountId(request.accountId())
                 .userName(request.userName())
-                .profileImageUrl(defaultImage.defaultImageUrl())
                 .build()
         );
     }

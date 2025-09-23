@@ -8,7 +8,5 @@ public interface Oauth2UserInfo {
 
     String getAccountId();
 
-    String getProfileImageUrl();
-
     Oauth2Provider getOauth2Provider();
 }

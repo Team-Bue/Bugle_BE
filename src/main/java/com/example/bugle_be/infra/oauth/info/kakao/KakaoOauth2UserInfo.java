@@ -13,7 +13,6 @@ public class KakaoOauth2UserInfo implements Oauth2UserInfo {
 
     private final String email;
     private final String accountId;
-    private final String profileImageUrl;
 
     public KakaoOauth2UserInfo(Map<String, Object> attributes) {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
@@ -35,8 +34,6 @@ public class KakaoOauth2UserInfo implements Oauth2UserInfo {
         if (accountId == null) {
             throw OauthAccountIdNotFound.EXCEPTION;
         }
-
-        this.profileImageUrl = (String) kakaoProfile.get("profile_image_url");
     }
 
     @Override
@@ -47,11 +44,6 @@ public class KakaoOauth2UserInfo implements Oauth2UserInfo {
     @Override
     public String getAccountId() {
         return accountId;
-    }
-
-    @Override
-    public String getProfileImageUrl() {
-        return profileImageUrl;
     }
 
     @Override
