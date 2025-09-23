@@ -2,20 +2,20 @@ package com.example.bugle_be.infra.oauth.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.MediaType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Component
+@RequiredArgsConstructor
 public class Oauth2FailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    private final HandlerExceptionResolver handlerExceptionResolver;
+
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(exception.getMessage());
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
+        handlerExceptionResolver.resolveException(request, response, null, exception);
     }
 }
