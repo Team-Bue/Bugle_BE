@@ -50,7 +50,6 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
                 User newUser = User.builder()
                     .email(userInfo.getEmail())
                     .accountId(userInfo.getAccountId())
-                    .profileImageUrl(userInfo.getProfileImageUrl())
                     .build();
                 return userRepository.save(newUser);
             });
