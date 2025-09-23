@@ -1,24 +1,26 @@
 package com.example.bugle_be.domain.auth.presentation.dto.request;
 
+import com.example.bugle_be.global.util.MessageProperty;
+import com.example.bugle_be.global.util.RegexProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record PasswordResetRequest(
-    @Email(message = "올바른 형식의 이메일을 입력해주세요.")
-    @NotBlank(message = "이메일은 필수 입력 항목입니다.")
+    @Email(message = MessageProperty.EMAIL_INVALID)
+    @NotBlank(message = MessageProperty.EMAIL_NOT_BLANK)
     String email,
 
-    @NotBlank(message = "토큰은 필수 입력 항목입니다.")
+    @NotBlank(message = MessageProperty.TOKEN_NOT_BLANK)
     String token,
 
     @Pattern(
-        regexp = "^(?=.*[@#!%&*])[a-zA-Z0-9@#!%&*]+$",
-        message = "비밀번호는 영어 대소문자, 숫자만 허용되며 @, #, !, %, &, * 중 하나 이상을 포함해야 합니다."
+        regexp = RegexProperty.PASSWORD,
+        message = MessageProperty.PASSWORD_PATTERN
     )
-    @NotBlank(message = "비밀번호는 필수 입력 항목입니다.")
-    @Size(min = 8, max = 30, message = "비밀번호는 최소 8자 이상, 30자 이하로 입력해주세요.")
+    @NotBlank(message = MessageProperty.PASSWORD_NOT_BLANK)
+    @Size(min = 8, max = 30, message = MessageProperty.PASSWORD_SIZE)
     String newPassword
 ) {
 }
