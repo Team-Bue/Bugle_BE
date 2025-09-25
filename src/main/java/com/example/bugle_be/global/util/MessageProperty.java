@@ -4,6 +4,8 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class MessageProperty {
+    // loginId
+    public static final String LOGIN_ID_NOT_BLANK = "이메일 또는 아이디는 필수 입력 항목입니다.";
 
     // email
     public static final String EMAIL_INVALID = "올바른 형식의 이메일을 입력해주세요.";
