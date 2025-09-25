@@ -2,7 +2,6 @@ package com.example.bugle_be.domain.auth.service;
 
 import com.example.bugle_be.domain.auth.exception.AccountIdNotFound;
 import com.example.bugle_be.domain.auth.exception.EmailNotFound;
-import com.example.bugle_be.domain.auth.exception.LoginIdentifierNotProvided;
 import com.example.bugle_be.domain.auth.exception.PasswordMisMatch;
 import com.example.bugle_be.domain.auth.presentation.dto.request.LoginRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
@@ -31,18 +30,15 @@ public class LoginService {
     }
 
     private User getUser(LoginRequest request) {
-        String email = request.email();
-        String accountId = request.accountId();
+        String loginId = request.loginId();
 
-        if (email != null) {
-            return userRepository.findByEmail(email)
+        if (loginId.contains("@")) {
+            return userRepository.findByEmail(loginId)
                 .orElseThrow(() -> EmailNotFound.EXCEPTION);
-        } else if (accountId != null) {
-            return userRepository.findByAccountId(accountId)
+        } else {
+            return userRepository.findByAccountId(loginId)
                 .orElseThrow(() -> AccountIdNotFound.EXCEPTION);
         }
-
-        throw LoginIdentifierNotProvided.EXCEPTION;
     }
 
     private void validatePassword(String requestPassword, String userPassword) {
