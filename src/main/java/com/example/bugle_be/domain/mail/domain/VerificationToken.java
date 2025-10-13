@@ -1,16 +1,19 @@
 package com.example.bugle_be.domain.mail.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 
 @Getter
+@Builder
 @RedisHash
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class VerificationToken {
 
     @Id
@@ -20,11 +23,4 @@ public class VerificationToken {
 
     @TimeToLive
     private Long ttl;
-
-    @Builder
-    public VerificationToken(String email, String token, Long ttl) {
-        this.email = email;
-        this.token = token;
-        this.ttl = ttl;
-    }
 }
