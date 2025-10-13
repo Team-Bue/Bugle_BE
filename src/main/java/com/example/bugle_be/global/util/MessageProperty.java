@@ -27,4 +27,8 @@ public class MessageProperty {
 
     // token
     public static final String TOKEN_NOT_BLANK = "인증 토큰은 필수 입력 항목입니다.";
+
+    // comment
+    public static final String COMMENT_NOT_BLANK = "댓글은 필수 입력 항목입니다.";
+    public static final String COMMENT_SIZE = "댓글은 300자 이내로 입력해주세요";
 }
