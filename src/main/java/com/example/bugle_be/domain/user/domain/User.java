@@ -4,7 +4,11 @@ import com.example.bugle_be.global.entity.BaseTimeEntity;
 import com.example.bugle_be.global.util.ImageProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import lombok.*;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter

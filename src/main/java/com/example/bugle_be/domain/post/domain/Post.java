@@ -2,8 +2,16 @@ package com.example.bugle_be.domain.post.domain;
 
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.global.entity.BaseTimeEntity;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 
 @Getter
 @Builder
