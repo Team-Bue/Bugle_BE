@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 public enum CommentErrorCode implements ErrorProperty {
 
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "Comment not found"),
-    CANNOT_UPDATE_COMMENT(HttpStatus.FORBIDDEN, "Can't update comment"),
-    CANNOT_DELETE_COMMENT(HttpStatus.FORBIDDEN, "Can't delete comment");
+    CANNOT_UPDATE_COMMENT(HttpStatus.FORBIDDEN, "Cannot update comment"),
+    CANNOT_DELETE_COMMENT(HttpStatus.FORBIDDEN, "Cannot delete comment");
 
     private final HttpStatus status;
     private final String message;
