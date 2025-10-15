@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
-@RequestMapping("/follow")
+@RequestMapping("/follows")
 @RequiredArgsConstructor
 public class FollowController {
 

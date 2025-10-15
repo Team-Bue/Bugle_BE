@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/mail")
+@RequestMapping("/mails")
 @RequiredArgsConstructor
 public class MailController {
 
