@@ -2,10 +2,10 @@ package com.example.bugle_be.domain.comment.service;
 
 import com.example.bugle_be.domain.comment.domain.Comment;
 import com.example.bugle_be.domain.comment.domain.repository.CommentRepository;
+import com.example.bugle_be.domain.comment.presentation.dto.request.CommentRequest;
 import com.example.bugle_be.domain.post.domain.Post;
 import com.example.bugle_be.domain.post.domain.repository.PostRepository;
 import com.example.bugle_be.domain.post.exception.PostNotFound;
-import com.example.bugle_be.domain.post.presentation.dto.request.PostRequest;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class CreateCommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public void execute(Long postId, PostRequest request) {
+    public void execute(Long postId, CommentRequest request) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> PostNotFound.EXCEPTION);
         User user = userFacade.getCurrentUser();
