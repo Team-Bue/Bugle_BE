@@ -1,0 +1,33 @@
+package com.example.bugle_be.domain.follow.presentation;
+
+import com.example.bugle_be.domain.follow.service.FollowService;
+import com.example.bugle_be.domain.follow.service.UnFollowService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+
+@RestController
+@RequestMapping("/follow")
+@RequiredArgsConstructor
+public class FollowController {
+
+    private final FollowService followService;
+    private final UnFollowService unFollowService;
+
+    @PostMapping("/{following-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void follow(@PathVariable("following-id") Long followingId) {
+        followService.execute(followingId);
+    }
+
+    @DeleteMapping("/{following-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unfollow(@PathVariable("following-id") Long followingId) {
+        unFollowService.execute(followingId);
+    }
+}
