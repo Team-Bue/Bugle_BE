@@ -1,8 +1,8 @@
 ALTER TABLE tbl_post
-DROP FOREIGN KEY FK2xe5ubrtvdd68bg3uf44vcgrt;
+DROP FOREIGN KEY FK_post_user;
 
 ALTER TABLE tbl_post
-    ADD CONSTRAINT FK2xe5ubrtvdd68bg3uf44vcgrt
+    ADD CONSTRAINT FK_post_user
         FOREIGN KEY (user_id)
             REFERENCES tbl_user (id)
             ON DELETE CASCADE;
