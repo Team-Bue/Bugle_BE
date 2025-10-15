@@ -59,8 +59,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PATCH, "/auth/password").permitAll()
 
                 // mail
-                .requestMatchers(HttpMethod.POST, "/mail/send").permitAll()
-                .requestMatchers(HttpMethod.POST, "/mail/verify").permitAll()
+                .requestMatchers(HttpMethod.POST, "/mails/send").permitAll()
+                .requestMatchers(HttpMethod.POST, "/mails/verify").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(new JwtFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new GlobalExceptionFilter(objectMapper), JwtFilter.class)
