@@ -2,6 +2,7 @@ package com.example.bugle_be.domain.comment.presentation;
 
 import com.example.bugle_be.domain.comment.presentation.dto.request.CommentRequest;
 import com.example.bugle_be.domain.comment.service.CreateCommentService;
+import com.example.bugle_be.domain.comment.service.DeleteCommentService;
 import com.example.bugle_be.domain.comment.service.UpdateCommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class CommentController {
 
     private final CreateCommentService createCommentService;
     private final UpdateCommentService updateCommentService;
+    private final DeleteCommentService deleteCommentService;
 
     @PostMapping("/{post-id}")
     @ResponseStatus(HttpStatus.CREATED)
@@ -26,5 +28,11 @@ public class CommentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable("comment-id") Long commentId, @RequestBody @Valid CommentRequest request) {
         updateCommentService.execute(commentId, request);
+    }
+
+    @DeleteMapping("/{comment-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("comment-id") Long commentId) {
+        deleteCommentService.execute(commentId);
     }
 }
