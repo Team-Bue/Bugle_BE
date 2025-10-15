@@ -4,8 +4,7 @@ import com.example.bugle_be.domain.comment.domain.Comment;
 import com.example.bugle_be.domain.comment.domain.repository.CommentRepository;
 import com.example.bugle_be.domain.comment.presentation.dto.request.CommentRequest;
 import com.example.bugle_be.domain.post.domain.Post;
-import com.example.bugle_be.domain.post.domain.repository.PostRepository;
-import com.example.bugle_be.domain.post.exception.PostNotFound;
+import com.example.bugle_be.domain.post.facade.PostFacade;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateCommentService {
 
     private final UserFacade userFacade;
-    private final PostRepository postRepository;
+    private final PostFacade postFacade;
     private final CommentRepository commentRepository;
 
     @Transactional
     public void execute(Long postId, CommentRequest request) {
-        Post post = postRepository.findById(postId)
-            .orElseThrow(() -> PostNotFound.EXCEPTION);
+        Post post = postFacade.getPostById(postId);
         User user = userFacade.getCurrentUser();
 
         commentRepository.save(
