@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum GlobalErrorCode implements ErrorProperty {
 
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
 
     EXPIRED_JWT(HttpStatus.UNAUTHORIZED, "Expired JWT"),
     INVALID_JWT(HttpStatus.UNAUTHORIZED, "Invalid JWT"),

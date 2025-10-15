@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum S3ErrorCode implements ErrorProperty {
 
-    OBJECT_KEY_NOT_FOUND(HttpStatus.NOT_FOUND, "Object Key Not Found"),
-    INTERNAL_S3_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal S3 Error");
+    OBJECT_KEY_NOT_FOUND(HttpStatus.NOT_FOUND, "Object key not found"),
+    INTERNAL_S3_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal s3 error");
 
     private final HttpStatus status;
     private final String message;
