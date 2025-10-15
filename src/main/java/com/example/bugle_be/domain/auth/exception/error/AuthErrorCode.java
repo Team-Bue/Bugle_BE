@@ -10,20 +10,20 @@ import org.springframework.http.HttpStatus;
 public enum AuthErrorCode implements ErrorProperty {
 
     // email
-    ALREADY_EMAIL_EXISTS(HttpStatus.CONFLICT, "Already Exists Email"),
-    EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "Email Not Found"),
+    ALREADY_EMAIL_EXISTS(HttpStatus.CONFLICT, "Already exists email"),
+    EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "Email not found"),
 
     // accountId
-    ALREADY_ACCOUNT_ID_EXISTS(HttpStatus.CONFLICT, "Already AccountId Exists"),
-    ACCOUNT_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "Account Id Not Found"),
+    ALREADY_ACCOUNT_ID_EXISTS(HttpStatus.CONFLICT, "Already exists account ID"),
+    ACCOUNT_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "Account ID not found"),
 
     // auth
-    PASSWORD_MISMATCH(HttpStatus.UNAUTHORIZED, "Password Mismatch"),
-    LOGIN_IDENTIFIER_NOT_PROVIDED(HttpStatus.BAD_REQUEST, "Login Identifier Not Provided"),
+    PASSWORD_MISMATCH(HttpStatus.UNAUTHORIZED, "Password mismatch"),
+    LOGIN_IDENTIFIER_NOT_PROVIDED(HttpStatus.BAD_REQUEST, "Login identifier not provided"),
 
     // refreshToken
-    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh Token Not Found"),
-    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Refresh Token");
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh token not found"),
+    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid refresh token");
 
     private final HttpStatus status;
     private final String message;

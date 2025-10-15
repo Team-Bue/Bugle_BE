@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum PostErrorCode implements ErrorProperty {
 
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "Post Not Found");
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "Post not found");
 
     private final HttpStatus status;
     private final String message;

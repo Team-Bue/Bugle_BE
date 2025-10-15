@@ -10,15 +10,16 @@ import org.springframework.http.HttpStatus;
 public enum MailErrorCode implements ErrorProperty {
 
     // code
-    CODE_MISMATCH(HttpStatus.BAD_REQUEST, "Code Mismatch"),
+    CODE_MISMATCH(HttpStatus.BAD_REQUEST, "Code mismatch"),
 
     // mail
-    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Mail Send failed"),
+    MAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Mail send failed"),
 
     // hash
-    HASHING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Hashing Failed"),
+    HASHING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "Hashing failed"),
 
-    TOKEN_MISMATCH(HttpStatus.UNAUTHORIZED, "Token Mismatch");
+    // token
+    TOKEN_MISMATCH(HttpStatus.UNAUTHORIZED, "Token mismatch");
 
     private final HttpStatus status;
     private final String message;
