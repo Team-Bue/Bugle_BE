@@ -26,5 +26,7 @@ public class DeleteCommentService {
         if (!comment.getUser().getId().equals(user.getId())) {
             throw CannotDeleteComment.EXCEPTION;
         }
+
+        commentRepository.delete(comment);
     }
 }
