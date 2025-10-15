@@ -4,7 +4,11 @@ import com.example.bugle_be.global.entity.BaseTimeEntity;
 import com.example.bugle_be.global.util.ImageProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import lombok.*;
+import lombok.Getter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter
@@ -26,9 +30,9 @@ public class User extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(20)")
     private String userName;
 
-    @ColumnDefault(ImageProperty.DEFAULT_USER_PROFILE_IMAGE)
+    @Builder.Default
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
-    private String profileImageUrl;
+    private String profileImageUrl = ImageProperty.DEFAULT_USER_PROFILE_IMAGE;
 
     public void changePassword(String password) {
         this.password = password;
