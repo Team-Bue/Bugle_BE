@@ -20,8 +20,8 @@ public class UnFollowService {
         User follower = userFacade.getCurrentUser();
         User following = userFacade.getUserById(followingId);
 
-        int deleted = followRepository.deleteByFollowerAndFollowing(follower, following);
-        if (deleted == 0) {
+        int deletedCount = followRepository.deleteByFollowerAndFollowing(follower, following);
+        if (deletedCount == 0) {
             throw NotFollowing.EXCEPTION;
         }
     }
