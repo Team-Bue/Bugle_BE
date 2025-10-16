@@ -16,4 +16,10 @@ public class PostFacade {
         return postRepository.findById(id)
             .orElseThrow(() -> PostNotFound.EXCEPTION);
     }
+
+    public void validatePostExists(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw PostNotFound.EXCEPTION;
+        }
+    }
 }
