@@ -1,7 +1,7 @@
 package com.example.bugle_be.domain.post.service;
 
 import com.example.bugle_be.domain.post.domain.repository.PostRepository;
-import com.example.bugle_be.domain.post.presentation.dto.response.QueryPostListResponse;
+import com.example.bugle_be.domain.post.presentation.dto.response.PostsResponse;
 import com.example.bugle_be.global.dto.TotalPageCountResponse;
 import com.example.bugle_be.global.util.PageUtil;
 import lombok.RequiredArgsConstructor;
@@ -12,15 +12,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class QueryPostListService {
+public class QueryPostsService {
 
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public QueryPostListResponse execute(int page) {
-        List<QueryPostListResponse.PostPreviewResponse> posts = postRepository.getAll(page);
+    public PostsResponse execute(int page) {
+        List<PostsResponse.PostPreviewResponse> posts = postRepository.getAll(page);
 
-        return new QueryPostListResponse(posts);
+        return new PostsResponse(posts);
     }
 
     @Transactional(readOnly = true)

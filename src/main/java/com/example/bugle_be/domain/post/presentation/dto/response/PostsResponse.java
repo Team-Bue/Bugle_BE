@@ -5,7 +5,7 @@ import lombok.Builder;
 
 import java.util.List;
 
-public record QueryPostListResponse(
+public record PostsResponse(
     List<PostPreviewResponse> posts
 ) {
     @Builder

@@ -2,8 +2,8 @@ package com.example.bugle_be.domain.post.domain.repository;
 
 import static com.example.bugle_be.domain.post.domain.QPost.post;
 
-import com.example.bugle_be.domain.post.presentation.dto.response.QQueryPostListResponse_PostPreviewResponse;
-import com.example.bugle_be.domain.post.presentation.dto.response.QueryPostListResponse;
+import com.example.bugle_be.domain.post.presentation.dto.response.PostsResponse;
+import com.example.bugle_be.domain.post.presentation.dto.response.QPostsResponse_PostPreviewResponse;
 import com.example.bugle_be.domain.search.presentation.dto.SearchType;
 import com.example.bugle_be.domain.search.presentation.dto.response.PostSearchResponse;
 import com.example.bugle_be.domain.search.presentation.dto.response.QPostSearchResponse_PostResponse;
@@ -22,12 +22,12 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<QueryPostListResponse.PostPreviewResponse> getAll(int page) {
+    public List<PostsResponse.PostPreviewResponse> getAll(int page) {
         int pageSize = PageUtil.POST_DEFAULT_PAGE_SIZE;
 
         return queryFactory
             .select(
-                new QQueryPostListResponse_PostPreviewResponse(
+                new QPostsResponse_PostPreviewResponse(
                     post.id,
                     post.user.accountId,
                     post.user.profileImageUrl,
