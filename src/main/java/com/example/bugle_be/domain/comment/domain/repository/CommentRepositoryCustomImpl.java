@@ -9,9 +9,11 @@ import com.example.bugle_be.domain.comment.presentation.dto.response.QCommentsRe
 import com.example.bugle_be.domain.comment.presentation.dto.response.QCommentsResponse_CommentResponse_UserResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 @RequiredArgsConstructor
 public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
 
