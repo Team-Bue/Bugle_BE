@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum PostErrorCode implements ErrorProperty {
 
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "Post not found");
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "Post not found"),
+    CANNOT_UPDATE_POST(HttpStatus.FORBIDDEN, "Cannot update post"),
+    CANNOT_DELETE_POST(HttpStatus.FORBIDDEN, "Cannot delete post");
 
     private final HttpStatus status;
     private final String message;
