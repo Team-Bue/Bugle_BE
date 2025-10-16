@@ -31,4 +31,9 @@ public class MessageProperty {
     // comment
     public static final String COMMENT_NOT_BLANK = "댓글은 필수 입력 항목입니다.";
     public static final String COMMENT_SIZE = "댓글은 300자 이내로 입력해주세요.";
+
+    // report
+    public static final String REPORT_REASON_NOT_BLANK = "신고 사유는 필수 입력 항목입니다.";
+    public static final String REPORT_REASON_SIZE = "신고 사유는 100자 이내로 입력해주세요.";
+    public static final String REPORT_TYPE_NOT_NULL = "신고 유형을 선택해주세요.";
 }
