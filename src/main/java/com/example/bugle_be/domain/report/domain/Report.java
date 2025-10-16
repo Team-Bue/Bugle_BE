@@ -29,7 +29,7 @@ public class Report extends BaseTimeEntity {
     private String reason;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "VARCHAR(6)")
+    @Column(nullable = false, columnDefinition = "VARCHAR(7)")
     private ReportType reportType;
 
     @Enumerated(EnumType.STRING)

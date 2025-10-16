@@ -1,0 +1,2 @@
+ALTER TABLE tbl_report
+    MODIFY COLUMN report_type VARCHAR(7) NOT NULL;
