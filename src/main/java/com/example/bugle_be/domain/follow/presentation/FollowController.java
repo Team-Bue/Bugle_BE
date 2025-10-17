@@ -3,6 +3,7 @@ package com.example.bugle_be.domain.follow.presentation;
 import com.example.bugle_be.domain.follow.presentation.dto.response.FollowResponse;
 import com.example.bugle_be.domain.follow.service.FollowService;
 import com.example.bugle_be.domain.follow.service.QueryFollowersService;
+import com.example.bugle_be.domain.follow.service.QueryFollowingsService;
 import com.example.bugle_be.domain.follow.service.UnFollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class FollowController {
     private final FollowService followService;
     private final UnFollowService unFollowService;
     private final QueryFollowersService queryFollowersService;
+    private final QueryFollowingsService queryFollowingsService;
 
     @PostMapping("/{following-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -39,5 +41,11 @@ public class FollowController {
     @ResponseStatus(HttpStatus.OK)
     public FollowResponse getFollowers() {
         return queryFollowersService.execute();
+    }
+
+    @GetMapping("/followings")
+    @ResponseStatus(HttpStatus.OK)
+    public FollowResponse getFollowing() {
+        return queryFollowingsService.execute();
     }
 }
