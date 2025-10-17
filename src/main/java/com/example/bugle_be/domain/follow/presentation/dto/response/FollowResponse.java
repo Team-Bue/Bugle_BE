@@ -6,18 +6,18 @@ import lombok.Builder;
 import java.util.List;
 
 public record FollowResponse(
-    List<UserDto> followers
+    List<UserDto> users
 ) {
     @Builder
     public record UserDto(
-        Long followerId,
+        Long userId,
         String accountId,
         String userName,
         String profileImageUrl
     ) {
         @QueryProjection
-        public UserDto(Long followerId, String accountId, String userName, String profileImageUrl) {
-            this.followerId = followerId;
+        public UserDto(Long userId, String accountId, String userName, String profileImageUrl) {
+            this.userId = userId;
             this.accountId = accountId;
             this.userName = userName;
             this.profileImageUrl = profileImageUrl;
