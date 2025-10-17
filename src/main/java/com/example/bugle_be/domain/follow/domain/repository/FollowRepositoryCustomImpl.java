@@ -34,4 +34,22 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
             .orderBy(follow.createdAt.desc())
             .fetch();
     }
+
+    @Override
+    public List<FollowResponse.UserDto> findAllFollowingsByUserId(Long userId) {
+        return queryFactory
+            .select(
+                new QFollowResponse_UserDto(
+                    user.id,
+                    user.accountId,
+                    user.userName,
+                    user.profileImageUrl
+                )
+            )
+            .from(follow)
+            .join(follow.following, user)
+            .where(follow.follower.id.eq(userId))
+            .orderBy(follow.createdAt.desc())
+            .fetch();
+    }
 }
