@@ -19,7 +19,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<UserSearchResponse.UserResponse> getAllByKeyword(int page, String keyword) {
+    public List<UserSearchResponse.UserResponse> findAllByKeyword(int page, String keyword) {
         int countSize = PageUtil.USER_DEFAULT_PAGE_SIZE;
 
         return queryFactory
@@ -38,7 +38,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public Long getAllByKeywordCount(String keyword) {
+    public Long findAllByKeywordCount(String keyword) {
         return queryFactory
             .select(user.count())
             .from(user)

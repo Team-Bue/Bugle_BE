@@ -20,7 +20,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<CommentsResponse.CommentResponse> getAll(Long postId) {
+    public List<CommentsResponse.CommentResponse> findAll(Long postId) {
         return queryFactory
             .select(
                 new QCommentsResponse_CommentResponse(

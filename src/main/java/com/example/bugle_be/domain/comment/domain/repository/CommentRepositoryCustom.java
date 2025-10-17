@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CommentRepositoryCustom {
 
-    List<CommentsResponse.CommentResponse> getAll(Long postId);
+    List<CommentsResponse.CommentResponse> findAll(Long postId);
 }

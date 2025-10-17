@@ -22,7 +22,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<PostsResponse.PostPreviewResponse> getAll(int page) {
+    public List<PostsResponse.PostPreviewResponse> findAll(int page) {
         int pageSize = PageUtil.POST_DEFAULT_PAGE_SIZE;
 
         return queryFactory
@@ -45,7 +45,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public Long getAllCount() {
+    public Long countAll() {
         return queryFactory
             .select(post.count())
             .from(post)
@@ -53,7 +53,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(int page, SearchType type, String keyword) {
+    public List<PostSearchResponse.PostResponse> findAllByTypeAndKeyword(int page, SearchType type, String keyword) {
         int pageSize = PageUtil.POST_DEFAULT_PAGE_SIZE;
 
         BooleanExpression condition = switch (type) {
@@ -78,7 +78,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public Long getAllByTypeAndKeywordCount(SearchType type, String keyword) {
+    public Long findAllByTypeAndKeywordCount(SearchType type, String keyword) {
         BooleanExpression condition = switch (type) {
             case CONTENT -> post.content.containsIgnoreCase(keyword);
             case LOCATION -> post.country.containsIgnoreCase(keyword)

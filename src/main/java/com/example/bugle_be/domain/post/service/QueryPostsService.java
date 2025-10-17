@@ -18,7 +18,7 @@ public class QueryPostsService {
 
     @Transactional(readOnly = true)
     public PostsResponse execute(int page) {
-        List<PostsResponse.PostPreviewResponse> posts = postRepository.getAll(page);
+        List<PostsResponse.PostPreviewResponse> posts = postRepository.findAll(page);
 
         return new PostsResponse(posts);
     }
@@ -26,7 +26,7 @@ public class QueryPostsService {
     @Transactional(readOnly = true)
     public TotalPageCountResponse executeCount() {
         int count = PageUtil.getTotalPageCount(
-            postRepository.getAllCount(), PageUtil.POST_DEFAULT_PAGE_SIZE
+            postRepository.countAll(), PageUtil.POST_DEFAULT_PAGE_SIZE
         );
 
         return new TotalPageCountResponse(count);

@@ -19,7 +19,7 @@ public class UserSearchService {
 
     @Transactional(readOnly = true)
     public UserSearchResponse execute(int page, UserSearchRequest request) {
-        List<UserSearchResponse.UserResponse> users = userRepository.getAllByKeyword(page, request.keyword());
+        List<UserSearchResponse.UserResponse> users = userRepository.findAllByKeyword(page, request.keyword());
 
         return new UserSearchResponse(users);
     }
@@ -27,7 +27,7 @@ public class UserSearchService {
     @Transactional(readOnly = true)
     public TotalPageCountResponse executeCount(UserSearchRequest request) {
         int count = PageUtil.getTotalPageCount(
-            userRepository.getAllByKeywordCount(request.keyword()),
+            userRepository.findAllByKeywordCount(request.keyword()),
             PageUtil.USER_DEFAULT_PAGE_SIZE
         );
 
