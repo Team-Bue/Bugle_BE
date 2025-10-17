@@ -5,8 +5,8 @@ import static com.example.bugle_be.domain.user.domain.QUser.user;
 import static com.example.bugle_be.domain.post.domain.QPost.post;
 
 import com.example.bugle_be.domain.comment.presentation.dto.response.CommentsResponse;
-import com.example.bugle_be.domain.comment.presentation.dto.response.QCommentsResponse_CommentResponse;
-import com.example.bugle_be.domain.comment.presentation.dto.response.QCommentsResponse_CommentResponse_UserResponse;
+import com.example.bugle_be.domain.comment.presentation.dto.response.QCommentsResponse_CommentDto;
+import com.example.bugle_be.domain.comment.presentation.dto.response.QCommentsResponse_CommentDto_UserDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,13 +20,13 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<CommentsResponse.CommentResponse> findAll(Long postId) {
+    public List<CommentsResponse.CommentDto> findAll(Long postId) {
         return queryFactory
             .select(
-                new QCommentsResponse_CommentResponse(
+                new QCommentsResponse_CommentDto(
                     comment.id,
                     comment.content,
-                    new QCommentsResponse_CommentResponse_UserResponse(
+                    new QCommentsResponse_CommentDto_UserDto(
                         comment.user.id,
                         comment.user.accountId,
                         comment.user.profileImageUrl

@@ -20,7 +20,7 @@ public class QueryCommentsService {
     @Transactional(readOnly = true)
     public CommentsResponse execute(Long postId) {
         Post post = postFacade.getPostById(postId);
-        List<CommentsResponse.CommentResponse> comments = commentRepository.findAll(postId);
+        List<CommentsResponse.CommentDto> comments = commentRepository.findAll(postId);
 
         return new CommentsResponse(comments);
     }
