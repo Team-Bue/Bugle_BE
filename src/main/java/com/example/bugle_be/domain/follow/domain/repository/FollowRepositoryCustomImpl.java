@@ -29,8 +29,8 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
                 )
             )
             .from(follow)
-            .join(follow.following, user)
-            .where(follow.follower.id.eq(userId))
+            .join(follow.follower, user)
+            .where(follow.following.id.eq(userId))
             .fetch();
     }
 }
