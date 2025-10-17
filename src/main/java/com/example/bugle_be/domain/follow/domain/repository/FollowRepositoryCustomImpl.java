@@ -31,6 +31,7 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
             .from(follow)
             .join(follow.follower, user)
             .where(follow.following.id.eq(userId))
+            .orderBy(follow.createdAt.desc())
             .fetch();
     }
 }
