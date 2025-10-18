@@ -8,7 +8,6 @@ import com.example.bugle_be.global.util.PageUtil;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.NumberUtils;
 
 import java.util.List;
 
