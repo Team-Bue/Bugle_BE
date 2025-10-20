@@ -3,7 +3,6 @@ package com.example.bugle_be.domain.follow.service;
 import com.example.bugle_be.domain.follow.domain.repository.FollowRepository;
 import com.example.bugle_be.domain.follow.presentation.dto.response.FollowResponse;
 import com.example.bugle_be.domain.user.domain.User;
-import com.example.bugle_be.domain.user.domain.repository.UserRepository;
 import com.example.bugle_be.domain.user.facade.UserFacade;
 import com.example.bugle_be.global.dto.TotalPageCountResponse;
 import com.example.bugle_be.global.util.PageUtil;
