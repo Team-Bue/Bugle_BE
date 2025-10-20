@@ -4,6 +4,8 @@ import com.example.bugle_be.domain.follow.domain.repository.FollowRepository;
 import com.example.bugle_be.domain.follow.presentation.dto.response.FollowResponse;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
+import com.example.bugle_be.global.dto.TotalPageCountResponse;
+import com.example.bugle_be.global.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +25,17 @@ public class QueryFollowingsService {
         List<FollowResponse.UserDto> followings = followRepository.findAllFollowingsByUserId(user.getId());
 
         return new FollowResponse(followings);
+    }
+
+    @Transactional(readOnly = true)
+    public TotalPageCountResponse executeCount() {
+        User user = userFacade.getCurrentUser();
+
+        int count = PageUtil.getTotalPageCount(
+            followRepository.countFollowingsByUserId(user.getId()),
+            PageUtil.USER_DEFAULT_PAGE_SIZE
+        );
+
+        return new TotalPageCountResponse(count);
     }
 }
