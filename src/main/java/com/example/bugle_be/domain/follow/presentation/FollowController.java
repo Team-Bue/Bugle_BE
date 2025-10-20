@@ -5,6 +5,7 @@ import com.example.bugle_be.domain.follow.service.FollowService;
 import com.example.bugle_be.domain.follow.service.QueryFollowersService;
 import com.example.bugle_be.domain.follow.service.QueryFollowingsService;
 import com.example.bugle_be.domain.follow.service.UnFollowService;
+import com.example.bugle_be.global.dto.TotalPageCountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,12 @@ public class FollowController {
     @ResponseStatus(HttpStatus.OK)
     public FollowResponse getFollowers() {
         return queryFollowersService.execute();
+    }
+
+    @GetMapping("/followers/count")
+    @ResponseStatus(HttpStatus.OK)
+    public TotalPageCountResponse getFollowersCount() {
+        return queryFollowersService.executeCount();
     }
 
     @GetMapping("/followings")
