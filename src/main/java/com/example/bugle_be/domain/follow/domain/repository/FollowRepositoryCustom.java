@@ -9,4 +9,6 @@ public interface FollowRepositoryCustom {
     List<FollowResponse.UserDto> findAllFollowersByUserId(Long userId);
 
     List<FollowResponse.UserDto> findAllFollowingsByUserId(Long userId);
+
+    Long countFollowersByUserId(Long userId);
 }

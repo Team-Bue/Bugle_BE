@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -51,5 +52,16 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
             .where(follow.follower.id.eq(userId))
             .orderBy(follow.createdAt.desc())
             .fetch();
+    }
+
+    @Override
+    public Long countFollowersByUserId(Long userId) {
+        return Optional.ofNullable(
+            queryFactory
+                .select(follow.count())
+                .from(follow)
+                .where(follow.following.id.eq(userId))
+                .fetchOne()
+        ).orElse(0L);
     }
 }
