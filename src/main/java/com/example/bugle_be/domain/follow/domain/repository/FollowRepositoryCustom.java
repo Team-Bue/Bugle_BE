@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface FollowRepositoryCustom {
 
-    List<FollowResponse.UserDto> findAllFollowersByUserId(Long userId);
+    List<FollowResponse.UserDto> findAllFollowersByUserId(int page, Long userId);
 
     Long countFollowersByUserId(Long userId);
 
-    List<FollowResponse.UserDto> findAllFollowingsByUserId(Long userId);
+    List<FollowResponse.UserDto> findAllFollowingsByUserId(int page, Long userId);
 
     Long countFollowingsByUserId(Long userId);
 }

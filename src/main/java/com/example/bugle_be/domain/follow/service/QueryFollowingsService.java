@@ -20,9 +20,9 @@ public class QueryFollowingsService {
     private final FollowRepository followRepository;
 
     @Transactional(readOnly = true)
-    public FollowResponse execute() {
+    public FollowResponse execute(int page) {
         User user = userFacade.getCurrentUser();
-        List<FollowResponse.UserDto> followings = followRepository.findAllFollowingsByUserId(user.getId());
+        List<FollowResponse.UserDto> followings = followRepository.findAllFollowingsByUserId(page, user.getId());
 
         return new FollowResponse(followings);
     }
