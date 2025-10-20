@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface PostRepositoryCustom {
 
-    List<PostsResponse.PostPreviewResponse> getAll(int page);
+    List<PostsResponse.PostPreviewResponse> findAll(int page);
 
-    Long getAllCount();
+    Long countAll();
 
-    List<PostSearchResponse.PostResponse> getAllByTypeAndKeyword(int page, SearchType type, String keyword);
+    List<PostSearchResponse.PostResponse> findAllByTypeAndKeyword(int page, SearchType type, String keyword);
 
-    Long getAllByTypeAndKeywordCount(SearchType type, String keyword);
+    Long countByTypeAndKeywordContaining(SearchType type, String keyword);
 }

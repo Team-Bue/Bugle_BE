@@ -6,29 +6,29 @@ import lombok.Builder;
 import java.util.List;
 
 public record CommentsResponse(
-    List<CommentResponse> comments
+    List<CommentDto> comments
 ) {
     @Builder
-    public record CommentResponse(
+    public record CommentDto(
         Long id,
         String content,
-        UserResponse user
+        UserDto user
     ) {
         @QueryProjection
-        public CommentResponse(Long id, String content, UserResponse user) {
+        public CommentDto(Long id, String content, UserDto user) {
             this.id = id;
             this.content = content;
             this.user = user;
 
         }
         @Builder
-        public record UserResponse(
+        public record UserDto(
             Long id,
             String accountId,
             String profileImageUrl
         ) {
             @QueryProjection
-            public UserResponse(Long id, String accountId, String profileImageUrl) {
+            public UserDto(Long id, String accountId, String profileImageUrl) {
                 this.id = id;
                 this.accountId = accountId;
                 this.profileImageUrl = profileImageUrl;

@@ -55,7 +55,7 @@ public class PostController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public PostsResponse queryAll(
-        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive int page
     ) {
         return queryPostsService.execute(page);
     }
