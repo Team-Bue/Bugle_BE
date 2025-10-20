@@ -8,5 +8,5 @@ public interface UserRepositoryCustom {
 
     List<UserSearchResponse.UserResponse> findAllByKeyword(int page, String keyword);
 
-    Long findAllByKeywordCount(String keyword);
+    Long countByKeywordContaining(String keyword);
 }

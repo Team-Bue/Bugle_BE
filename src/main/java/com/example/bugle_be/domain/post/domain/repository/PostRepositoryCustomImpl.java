@@ -78,7 +78,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public Long findAllByTypeAndKeywordCount(SearchType type, String keyword) {
+    public Long countByTypeAndKeywordContaining(SearchType type, String keyword) {
         BooleanExpression condition = switch (type) {
             case CONTENT -> post.content.containsIgnoreCase(keyword);
             case LOCATION -> post.country.containsIgnoreCase(keyword)

@@ -37,7 +37,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public Long findAllByKeywordCount(String keyword) {
+    public Long countByKeywordContaining(String keyword) {
         return queryFactory
             .select(user.count())
             .from(user)

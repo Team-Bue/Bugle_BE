@@ -14,5 +14,5 @@ public interface PostRepositoryCustom {
 
     List<PostSearchResponse.PostResponse> findAllByTypeAndKeyword(int page, SearchType type, String keyword);
 
-    Long findAllByTypeAndKeywordCount(SearchType type, String keyword);
+    Long countByTypeAndKeywordContaining(SearchType type, String keyword);
 }
