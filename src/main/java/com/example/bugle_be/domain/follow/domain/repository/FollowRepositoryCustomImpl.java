@@ -37,6 +37,17 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
     }
 
     @Override
+    public Long countFollowersByUserId(Long userId) {
+        return Optional.ofNullable(
+            queryFactory
+                .select(follow.count())
+                .from(follow)
+                .where(follow.following.id.eq(userId))
+                .fetchOne()
+        ).orElse(0L);
+    }
+
+    @Override
     public List<FollowResponse.UserDto> findAllFollowingsByUserId(Long userId) {
         return queryFactory
             .select(
@@ -55,12 +66,13 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
     }
 
     @Override
-    public Long countFollowersByUserId(Long userId) {
+    public Long countFollowingsByUserId(Long userId) {
         return Optional.ofNullable(
             queryFactory
                 .select(follow.count())
                 .from(follow)
-                .where(follow.following.id.eq(userId))
+                .join(follow.following, user)
+                .where(follow.follower.id.eq(userId))
                 .fetchOne()
         ).orElse(0L);
     }
