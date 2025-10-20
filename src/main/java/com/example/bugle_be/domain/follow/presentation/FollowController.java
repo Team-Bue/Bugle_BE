@@ -45,9 +45,9 @@ public class FollowController {
     @GetMapping("/followers")
     @ResponseStatus(HttpStatus.OK)
     public FollowResponse getFollowers(
-        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive int page
     ) {
-        return queryFollowersService.execute();
+        return queryFollowersService.execute(page);
     }
 
     @GetMapping("/followers/count")
@@ -59,9 +59,9 @@ public class FollowController {
     @GetMapping("/followings")
     @ResponseStatus(HttpStatus.OK)
     public FollowResponse getFollowing(
-        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive int page
     ) {
-        return queryFollowingsService.execute();
+        return queryFollowingsService.execute(page);
     }
 
     @GetMapping("/followings/count")

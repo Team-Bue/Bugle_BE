@@ -28,7 +28,7 @@ public class SearchController {
 
     @GetMapping("/users")
     public UserSearchResponse userSearch(
-        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page,
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive int page,
         @Valid @ModelAttribute UserSearchRequest request
     ) {
         return userSearchService.execute(page, request);
@@ -43,7 +43,7 @@ public class SearchController {
 
     @GetMapping("/posts")
     public PostSearchResponse postSearch(
-        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive Integer page,
+        @RequestParam(value = "page", required = false, defaultValue = "1") @Positive int page,
         @Valid @ModelAttribute PostSearchRequest request
     ) {
         return postSearchService.execute(page, request);
