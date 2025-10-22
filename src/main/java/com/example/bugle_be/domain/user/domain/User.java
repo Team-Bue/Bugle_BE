@@ -30,7 +30,7 @@ public class User extends BaseTimeEntity {
     private String userName;
 
     @Column(columnDefinition = "VARCHAR(255)")
-    private String token;
+    private String deviceToken;
 
     @Builder.Default
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
@@ -40,11 +40,11 @@ public class User extends BaseTimeEntity {
         this.password = password;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
-    public void deleteToken() {
-        this.token = null;
+    public void deleteDeviceToken() {
+        this.deviceToken = null;
     }
 }

@@ -17,6 +17,6 @@ public class SetDeviceTokenService {
     public void execute(TokenRequest request) {
         User user = userFacade.getCurrentUser();
 
-        user.setToken(request.deviceToken());
+        user.setDeviceToken(request.deviceToken());
     }
 }

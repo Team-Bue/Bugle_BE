@@ -16,6 +16,6 @@ public class DeleteDeviceTokenService {
     public void execute() {
         User user = userFacade.getCurrentUser();
 
-        user.deleteToken();
+        user.deleteDeviceToken();
     }
 }
