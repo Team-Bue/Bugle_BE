@@ -29,11 +29,22 @@ public class User extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(20)")
     private String userName;
 
+    @Column(columnDefinition = "VARCHAR(255)")
+    private String deviceToken;
+
     @Builder.Default
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String profileImageUrl = ImageProperty.DEFAULT_USER_PROFILE_IMAGE;
 
     public void changePassword(String password) {
         this.password = password;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
+    public void deleteDeviceToken() {
+        this.deviceToken = null;
     }
 }

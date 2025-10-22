@@ -3,13 +3,16 @@ package com.example.bugle_be.domain.auth.presentation;
 import com.example.bugle_be.domain.auth.presentation.dto.request.LoginRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.request.PasswordResetRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.request.SignupRequest;
+import com.example.bugle_be.domain.auth.presentation.dto.request.TokenRequest;
 import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
-import com.example.bugle_be.domain.auth.service.SignupService;
 import com.example.bugle_be.domain.auth.service.LoginService;
 import com.example.bugle_be.domain.auth.service.LogoutService;
+import com.example.bugle_be.domain.auth.service.SignupService;
 import com.example.bugle_be.domain.auth.service.WithdrawService;
 import com.example.bugle_be.domain.auth.service.ReissueService;
+import com.example.bugle_be.domain.auth.service.SetDeviceTokenService;
 import com.example.bugle_be.domain.auth.service.PasswordResetService;
+import com.example.bugle_be.domain.auth.service.DeleteDeviceTokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,8 @@ public class AuthController {
     private final WithdrawService withdrawService;
     private final ReissueService reissueService;
     private final PasswordResetService passwordResetService;
+    private final SetDeviceTokenService setDeviceTokenService;
+    private final DeleteDeviceTokenService deleteDeviceTokenService;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -68,5 +73,17 @@ public class AuthController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void passwordReset(@RequestBody @Valid PasswordResetRequest request) {
         passwordResetService.execute(request);
+    }
+
+    @PatchMapping("/device-token")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setToken(@RequestBody @Valid TokenRequest request) {
+        setDeviceTokenService.execute(request);
+    }
+
+    @DeleteMapping("/device-token")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteToken() {
+        deleteDeviceTokenService.execute();
     }
 }
