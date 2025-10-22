@@ -43,4 +43,8 @@ public class User extends BaseTimeEntity {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public void deleteToken() {
+        this.token = null;
+    }
 }
