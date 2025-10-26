@@ -40,7 +40,7 @@ public class FollowService {
 
             notificationService.execute(
                 following,
-                follower.getAccountId()+ NotificationMessage.LIKE.getMessage()
+                follower.getAccountId()+ NotificationMessage.FOLLOW.getMessage()
             );
         } catch (DataIntegrityViolationException e) {
             throw AlreadyFollowed.EXCEPTION;
