@@ -38,7 +38,7 @@ public class FollowService {
                     .build()
             );
 
-            notificationService.sendFollowNotification(
+            notificationService.execute(
                 following,
                 follower.getAccountId()+ NotificationMessage.LIKE.getMessage()
             );

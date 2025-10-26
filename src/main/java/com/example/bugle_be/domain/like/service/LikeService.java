@@ -36,7 +36,7 @@ public class LikeService {
                     .build()
             );
 
-            notificationService.sendLikeNotification(
+            notificationService.execute(
                 post.getUser(),
                 user.getAccountId()+ NotificationMessage.LIKE.getMessage()
                 );
