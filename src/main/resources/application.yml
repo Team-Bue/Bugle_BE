@@ -94,3 +94,6 @@ cloud:
 user:
   profile:
     default-image-url: ${DEFAULT_PROFILE_IMAGE}
+
+fcm:
+  json: ${FCM_JSON}
