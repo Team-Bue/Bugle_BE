@@ -1,7 +1,6 @@
 CREATE TABLE tbl_notification (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    content VARCHAR(255) NOT NULL,
+    title VARCHAR(100) NOT NULL,
     device_token VARCHAR(255) NOT NULL,
     is_read TINYINT(1) DEFAULT 0 NOT NULL,
     user_id BIGINT NOT NULL,

@@ -11,18 +11,17 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 
 @Getter
+@Builder
 @Entity(name = "tbl_notification")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Notification extends BaseTimeEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(100)")
     private String title;
-
-    @Column(nullable = false)
-    private String content;
 
     @Column(nullable = false)
     private String deviceToken;

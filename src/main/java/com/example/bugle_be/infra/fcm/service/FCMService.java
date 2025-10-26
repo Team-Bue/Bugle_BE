@@ -25,7 +25,6 @@ public class FCMService {
                 .setToken(token)
                 .setNotification(com.google.firebase.messaging.Notification.builder()
                     .setTitle(notification.getTitle())
-                    .setBody(notification.getContent())
                     .build())
                 .build();
 
