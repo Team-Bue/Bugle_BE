@@ -38,7 +38,7 @@ public class LikeService {
 
             notificationService.execute(
                 post.getUser(),
-                user.getAccountId()+ NotificationMessage.LIKE.getMessage()
+                user.getAccountId() + NotificationMessage.LIKE.getMessage()
                 );
         } catch (DataIntegrityViolationException e) {
             throw AlreadyLiked.EXCEPTION;
