@@ -4,6 +4,8 @@ import com.example.bugle_be.domain.follow.domain.Follow;
 import com.example.bugle_be.domain.follow.domain.repository.FollowRepository;
 import com.example.bugle_be.domain.follow.exception.AlreadyFollowed;
 import com.example.bugle_be.domain.follow.exception.CannotFollowYourself;
+import com.example.bugle_be.domain.notification.message.NotificationMessage;
+import com.example.bugle_be.domain.notification.service.NotificationService;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class FollowService {
 
     private final UserFacade userFacade;
     private final FollowRepository followRepository;
+    private final NotificationService notificationService;
 
     @Transactional
     public void execute(Long followingId) {
@@ -37,5 +40,10 @@ public class FollowService {
         } catch (DataIntegrityViolationException e) {
             throw AlreadyFollowed.EXCEPTION;
         }
+
+        notificationService.execute(
+            following,
+            follower.getAccountId() + NotificationMessage.FOLLOW.getMessage()
+        );
     }
 }
