@@ -10,7 +10,8 @@ import org.springframework.http.HttpStatus;
 public enum FCMErrorCode implements ErrorProperty {
 
     DEVICE_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Device token not found"),
-    FCM_INITIALIZATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "FCM initialization failed");
+    FCM_INITIALIZATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "FCM initialization failed"),
+    FAILED_TO_SEND_MESSAGE(HttpStatus.INTERNAL_SERVER_ERROR, "FCM send message failed");
 
     private final HttpStatus status;
     private final String message;
