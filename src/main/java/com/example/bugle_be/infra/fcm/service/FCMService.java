@@ -2,6 +2,7 @@ package com.example.bugle_be.infra.fcm.service;
 
 import com.example.bugle_be.domain.notification.domain.Notification;
 import com.example.bugle_be.infra.fcm.exception.DeviceTokenNotFound;
+import com.example.bugle_be.infra.fcm.exception.FailedToSendMessage;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
@@ -30,7 +31,7 @@ public class FCMService {
 
             FirebaseMessaging.getInstance().send(message);
         } catch (FirebaseMessagingException e) {
-            log.error("Failed to send message", e);
+            throw FailedToSendMessage.EXCEPTION;
         }
     }
 }
