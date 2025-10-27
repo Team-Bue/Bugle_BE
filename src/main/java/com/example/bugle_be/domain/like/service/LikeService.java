@@ -35,13 +35,13 @@ public class LikeService {
                     .post(post)
                     .build()
             );
-
-            notificationService.execute(
-                post.getUser(),
-                user.getAccountId() + NotificationMessage.LIKE.getMessage()
-                );
         } catch (DataIntegrityViolationException e) {
             throw AlreadyLiked.EXCEPTION;
         }
+
+        notificationService.execute(
+            post.getUser(),
+            user.getAccountId() + NotificationMessage.LIKE.getMessage()
+        );
     }
 }

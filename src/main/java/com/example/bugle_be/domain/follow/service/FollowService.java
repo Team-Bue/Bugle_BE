@@ -37,13 +37,13 @@ public class FollowService {
                     .following(following)
                     .build()
             );
-
-            notificationService.execute(
-                following,
-                follower.getAccountId() + NotificationMessage.FOLLOW.getMessage()
-            );
         } catch (DataIntegrityViolationException e) {
             throw AlreadyFollowed.EXCEPTION;
         }
+
+        notificationService.execute(
+            following,
+            follower.getAccountId() + NotificationMessage.FOLLOW.getMessage()
+        );
     }
 }
