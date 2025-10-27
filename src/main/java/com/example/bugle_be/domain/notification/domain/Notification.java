@@ -24,9 +24,6 @@ public class Notification extends BaseTimeEntity {
     private String title;
 
     @Column(nullable = false)
-    private String deviceToken;
-
-    @Column(nullable = false)
     private Boolean isRead = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

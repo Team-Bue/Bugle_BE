@@ -20,7 +20,6 @@ public class NotificationService {
         Notification notification = notificationRepository.save(Notification.builder()
             .user(user)
             .title(title)
-            .deviceToken(user.getDeviceToken())
             .build());
 
         TransactionSynchronizationManager.registerSynchronization(
