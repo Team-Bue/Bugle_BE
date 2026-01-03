@@ -13,10 +13,7 @@ public record CommentsResponse(
         UserDto user
     ) {
         @QueryProjection
-        public CommentDto(Long id, String content, UserDto user) {
-            this.id = id;
-            this.content = content;
-            this.user = user;
+        public CommentDto {
         }
         public record UserDto(
             Long id,
@@ -24,10 +21,7 @@ public record CommentsResponse(
             String profileImageUrl
         ) {
             @QueryProjection
-            public UserDto(Long id, String accountId, String profileImageUrl) {
-                this.id = id;
-                this.accountId = accountId;
-                this.profileImageUrl = profileImageUrl;
+            public UserDto {
             }
         }
     }

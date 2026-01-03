@@ -14,16 +14,7 @@ public record UserSearchResponse(
         String profileImageUrl
     ) {
         @QueryProjection
-        public UserResponse(
-            Long id,
-            String accountId,
-            String userName,
-            String profileImageUrl
-        ) {
-            this.id = id;
-            this.accountId = accountId;
-            this.userName = userName;
-            this.profileImageUrl = profileImageUrl;
+        public UserResponse {
         }
     }
 }

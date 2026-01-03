@@ -17,22 +17,7 @@ public record PostsResponse(
         String content
     ) {
         @QueryProjection
-        public PostPreviewResponse(
-            Long id,
-            String accountId,
-            String profileImageUrl,
-            String country,
-            String region,
-            String fileUrl,
-            String content
-        ) {
-            this.id = id;
-            this.accountId = accountId;
-            this.profileImageUrl = profileImageUrl;
-            this.country = country;
-            this.region = region;
-            this.fileUrl = fileUrl;
-            this.content = content;
+        public PostPreviewResponse {
         }
     }
 }

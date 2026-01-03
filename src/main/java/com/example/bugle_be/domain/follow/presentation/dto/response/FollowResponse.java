@@ -14,14 +14,7 @@ public record FollowResponse(
         String profileImageUrl
     ) {
         @QueryProjection
-        public UserDto(
-            Long userId, String accountId,
-            String userName, String profileImageUrl
-        ) {
-            this.userId = userId;
-            this.accountId = accountId;
-            this.userName = userName;
-            this.profileImageUrl = profileImageUrl;
+        public UserDto {
         }
     }
 }
