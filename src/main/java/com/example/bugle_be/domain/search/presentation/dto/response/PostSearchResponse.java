@@ -12,9 +12,7 @@ public record PostSearchResponse(
         String fileUrl
     ) {
         @QueryProjection
-        public PostResponse(Long id, String fileUrl) {
-            this.id = id;
-            this.fileUrl = fileUrl;
+        public PostResponse {
         }
     }
 }
