@@ -70,12 +70,12 @@ public class JwtTokenProvider {
     }
 
     public TokenResponse createToken(String email) {
-        return TokenResponse.builder()
-            .accessToken(generateAccessToken(email))
-            .refreshToken(generateRefreshToken(email))
-            .accessExp(LocalDateTime.now().plusSeconds(jwtProperties.accessExp()))
-            .refreshExp(LocalDateTime.now().plusSeconds(jwtProperties.refreshExp()))
-            .build();
+        return TokenResponse.of(
+            generateAccessToken(email),
+            generateRefreshToken(email),
+            LocalDateTime.now().plusSeconds(jwtProperties.accessExp()),
+            LocalDateTime.now().plusSeconds(jwtProperties.refreshExp())
+        );
     }
 
     public String parseToken(String bearerToken) {
