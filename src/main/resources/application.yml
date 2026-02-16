@@ -34,8 +34,6 @@ spring:
     port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
-    security:
-      secret: ${MAIL_SECRET}
     default-encoding: UTF-8
     properties:
       mail:
@@ -47,12 +45,6 @@ spring:
           starttls:
             enable: true
 
-  jwt:
-    secretKey: ${JWT_SECRET}
-    header: ${HEADER}
-    prefix: ${PREFIX}
-    accessExp: ${ACCESS_EXP}
-    refreshExp: ${REFRESH_EXP}
 
   data:
     redis:
@@ -81,6 +73,18 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+
+jwt:
+  secretKey: ${JWT_SECRET}
+  header: ${HEADER}
+  prefix: ${PREFIX}
+  accessExp: ${ACCESS_EXP}
+  refreshExp: ${REFRESH_EXP}
+
+mail:
+  security:
+    secret: ${MAIL_SECRET}
+
 
 cloud:
   aws:
