@@ -1,0 +1,82 @@
+services:
+  app:
+    build: .
+    container_name: bugle-app
+    ports:
+      - "80:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MYSQL_URL: ${MYSQL_URL}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      HEADER: ${HEADER}
+      PREFIX: ${PREFIX}
+      ACCESS_EXP: ${ACCESS_EXP}
+      REFRESH_EXP: ${REFRESH_EXP}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_SECRET: ${MAIL_SECRET}
+      KAKAO_CLIENT: ${KAKAO_CLIENT}
+      KAKAO_SECRET: ${KAKAO_SECRET}
+      KAKAO_REDIRECT_URI: ${KAKAO_REDIRECT_URI}
+      BUCKET_NAME: ${BUCKET_NAME}
+      AWS_REGION: ${AWS_REGION}
+      DEFAULT_PROFILE_IMAGE: ${DEFAULT_PROFILE_IMAGE}
+      FCM_JSON: ${FCM_JSON}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - bugle-network
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  mysql:
+    image: mysql:8.0
+    container_name: bugle-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Seoul
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - bugle-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: bugle-redis
+    restart: unless-stopped
+    networks:
+      - bugle-network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  bugle-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
