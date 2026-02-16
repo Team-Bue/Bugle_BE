@@ -23,11 +23,11 @@ RUN ./gradlew clean bootJar --no-daemon -x test
 # -----------------------------
 # 2️⃣ Run Stage
 # -----------------------------
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # 보안을 위한 non-root 유저 생성
-RUN addgroup -S spring && adduser -S spring -G spring
+RUN groupadd -r spring && useradd -r -g spring spring
 
 # JAR 파일 복사
 COPY --from=build --chown=spring:spring /app/build/libs/*SNAPSHOT.jar app.jar
