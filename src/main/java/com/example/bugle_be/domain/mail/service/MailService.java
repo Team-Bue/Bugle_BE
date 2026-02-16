@@ -36,7 +36,7 @@ public class MailService {
     private static final String ALGORITHM = "HmacSHA256";
     private static final Long VERIFICATION_TTL = 300L;
 
-    @Value("${spring.mail.security.secret}")
+    @Value("${mail.security.secret}")
     private String secret;
 
     @Transactional
