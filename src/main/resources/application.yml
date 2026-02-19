@@ -16,13 +16,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
-
-  main:
-    allow-bean-definition-overriding: true
 
   jackson:
     property-naming-strategy: SNAKE_CASE
@@ -34,8 +27,6 @@ spring:
     port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
-    security:
-      secret: ${MAIL_SECRET}
     default-encoding: UTF-8
     properties:
       mail:
@@ -46,13 +37,6 @@ spring:
           timeout: 5000
           starttls:
             enable: true
-
-  jwt:
-    secretKey: ${JWT_SECRET}
-    header: ${HEADER}
-    prefix: ${PREFIX}
-    accessExp: ${ACCESS_EXP}
-    refreshExp: ${REFRESH_EXP}
 
   data:
     redis:
@@ -82,18 +66,23 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
+jwt:
+  secretKey: ${JWT_SECRET}
+  header: ${HEADER}
+  prefix: ${PREFIX}
+  accessExp: ${ACCESS_EXP}
+  refreshExp: ${REFRESH_EXP}
+
+mail:
+  security:
+    secret: ${MAIL_SECRET}
+
 cloud:
   aws:
     bucket: ${BUCKET_NAME}
-    accessKey: ${AWS_ACCESS_KEY_ID}
-    secretKey: ${AWS_SECRET_ACCESS_KEY}
     region: ${AWS_REGION}
     stack:
       auto: false
-
-user:
-  profile:
-    default-image-url: ${DEFAULT_PROFILE_IMAGE}
 
 fcm:
   json: ${FCM_JSON}
