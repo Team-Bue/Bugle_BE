@@ -21,9 +21,6 @@ spring:
         format_sql: true
     show-sql: true
 
-  main:
-    allow-bean-definition-overriding: true
-
   jackson:
     property-naming-strategy: SNAKE_CASE
     serialization:
@@ -44,7 +41,6 @@ spring:
           timeout: 5000
           starttls:
             enable: true
-
 
   data:
     redis:
@@ -84,7 +80,6 @@ jwt:
 mail:
   security:
     secret: ${MAIL_SECRET}
-
 
 cloud:
   aws:
