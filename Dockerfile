@@ -30,7 +30,7 @@ WORKDIR /app
 RUN groupadd -r spring && useradd -r -g spring spring
 
 # JAR 파일 복사
-COPY --from=build --chown=spring:spring /app/build/libs/*SNAPSHOT.jar app.jar
+COPY --from=build --chown=spring:spring /app/build/libs/app.jar app.jar
 
 # non-root 유저로 전환
 USER spring:spring
