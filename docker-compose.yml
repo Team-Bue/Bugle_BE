@@ -1,6 +1,6 @@
 services:
   app:
-    image: 969283154948.dkr.ecr.ap-northeast-2.amazonaws.com/bugle:latest
+    image: ${ECR_IMAGE_URI}
     container_name: bugle-app
     ports:
       - "8080:8080"
