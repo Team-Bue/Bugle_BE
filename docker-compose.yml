@@ -27,10 +27,8 @@ services:
       DEFAULT_PROFILE_IMAGE: ${DEFAULT_PROFILE_IMAGE}
       FCM_JSON: ${FCM_JSON}
     depends_on:
-      mysql:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - mysql
+      - redis
     restart: unless-stopped
     networks:
       - bugle-network
