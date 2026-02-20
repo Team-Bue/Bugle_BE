@@ -8,6 +8,7 @@ import com.example.bugle_be.infra.oauth.handler.Oauth2SuccessHandler;
 import com.example.bugle_be.infra.oauth.service.CustomOauth2UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -53,7 +54,7 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 // actuator
-                .requestMatchers("/actuator/health").permitAll()
+                .requestMatchers(EndpointRequest.to("health")).permitAll()
 
                 // auth
                 .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
