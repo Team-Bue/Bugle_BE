@@ -28,7 +28,6 @@ HELP.md
 
 # Config
 .coderabbit.yaml
-.env
 
 # Test
 src/test

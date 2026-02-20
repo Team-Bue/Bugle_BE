@@ -38,6 +38,3 @@ out/
 
 ### Query DSL ###
 /src/main/generated/
-
-### ENV ###
-.env
