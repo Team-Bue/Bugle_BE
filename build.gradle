@@ -68,6 +68,9 @@ dependencies {
 
     // firebase
     implementation 'com.google.firebase:firebase-admin:9.7.0'
+
+    // actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 tasks.named('test') {
