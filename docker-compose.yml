@@ -26,8 +26,10 @@ services:
       AWS_REGION: ${AWS_REGION}
       FCM_JSON: ${FCM_JSON}
     depends_on:
-      - mysql
-      - redis
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     restart: unless-stopped
     networks:
       - bugle-network
