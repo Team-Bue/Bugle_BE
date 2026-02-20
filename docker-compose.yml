@@ -24,7 +24,6 @@ services:
       KAKAO_REDIRECT_URI: ${KAKAO_REDIRECT_URI}
       BUCKET_NAME: ${BUCKET_NAME}
       AWS_REGION: ${AWS_REGION}
-      DEFAULT_PROFILE_IMAGE: ${DEFAULT_PROFILE_IMAGE}
       FCM_JSON: ${FCM_JSON}
     depends_on:
       - mysql
