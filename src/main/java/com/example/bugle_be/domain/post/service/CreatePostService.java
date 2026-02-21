@@ -25,7 +25,7 @@ public class CreatePostService {
                 .content(request.content())
                 .country(request.country())
                 .region(request.region())
-                .fileUrl(request.objectKey())
+                .objectKey(request.objectKey())
                 .user(user)
                 .build()
         );
