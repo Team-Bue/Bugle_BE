@@ -37,6 +37,11 @@ public class S3Service {
     }
 
     public void deleteObject(String objectKey) {
+        if (objectKey == null || objectKey.isBlank()) {
+            log.warn("S3 삭제 실패 - objectKey가 null이거나 빈 문자열");
+            return;
+        }
+
         try {
             DeleteObjectRequest request = DeleteObjectRequest.builder()
                 .bucket(s3Properties.bucket())
