@@ -11,7 +11,7 @@ public record FollowResponse(
         Long userId,
         String accountId,
         String userName,
-        String profileImageUrl
+        String profileImageObjectKey
     ) {
         @QueryProjection
         public UserDto {

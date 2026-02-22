@@ -29,7 +29,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
                     new QCommentsResponse_CommentDto_UserDto(
                         comment.user.id,
                         comment.user.accountId,
-                        comment.user.profileImageUrl
+                        comment.user.profileImageObjectKey
                     )
                 )
             )

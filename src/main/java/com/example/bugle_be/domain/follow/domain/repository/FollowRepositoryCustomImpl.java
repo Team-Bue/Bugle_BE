@@ -29,7 +29,7 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
                     user.id,
                     user.accountId,
                     user.userName,
-                    user.profileImageUrl
+                    user.profileImageObjectKey
                 )
             )
             .from(follow)
@@ -60,7 +60,7 @@ public class FollowRepositoryCustomImpl implements FollowRepositoryCustom {
                     user.id,
                     user.accountId,
                     user.userName,
-                    user.profileImageUrl
+                    user.profileImageObjectKey
                 )
             )
             .from(follow)
