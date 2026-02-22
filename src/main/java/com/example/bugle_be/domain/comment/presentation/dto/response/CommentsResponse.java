@@ -18,7 +18,7 @@ public record CommentsResponse(
         public record UserDto(
             Long id,
             String accountId,
-            String profileImageUrl
+            String profileImageObjectKey
         ) {
             @QueryProjection
             public UserDto {

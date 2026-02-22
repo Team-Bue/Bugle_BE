@@ -11,7 +11,7 @@ public record UserSearchResponse(
         Long id,
         String accountId,
         String userName,
-        String profileImageUrl
+        String profileImageObjectKey
     ) {
         @QueryProjection
         public UserResponse {

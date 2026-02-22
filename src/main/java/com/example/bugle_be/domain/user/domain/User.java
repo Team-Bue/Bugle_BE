@@ -34,7 +34,7 @@ public class User extends BaseTimeEntity {
 
     @Builder.Default
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
-    private String profileImageUrl = ImageProperty.DEFAULT_USER_PROFILE_IMAGE;
+    private String profileImageObjectKey = ImageProperty.DEFAULT_USER_PROFILE_IMAGE;
 
     public void changePassword(String password) {
         this.password = password;
@@ -46,5 +46,9 @@ public class User extends BaseTimeEntity {
 
     public void deleteDeviceToken() {
         this.deviceToken = null;
+    }
+
+    public boolean isCustomProfileImage() {
+        return !this.profileImageObjectKey.equals(ImageProperty.DEFAULT_USER_PROFILE_IMAGE);
     }
 }

@@ -10,7 +10,7 @@ public record PostsResponse(
     public record PostPreviewResponse(
         Long id,
         String accountId,
-        String profileImageUrl,
+        String profileImageObjectKey,
         String country,
         String region,
         String objectKey,

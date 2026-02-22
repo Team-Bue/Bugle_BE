@@ -30,7 +30,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 new QPostsResponse_PostPreviewResponse(
                     post.id,
                     post.user.accountId,
-                    post.user.profileImageUrl,
+                    post.user.profileImageObjectKey,
                     post.country,
                     post.region,
                     post.objectKey,

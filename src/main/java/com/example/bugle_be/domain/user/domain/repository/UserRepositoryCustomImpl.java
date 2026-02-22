@@ -26,7 +26,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                 user.id,
                 user.accountId,
                 user.userName,
-                user.profileImageUrl
+                user.profileImageObjectKey
             ))
             .from(user)
             .where(user.accountId.containsIgnoreCase(keyword)
