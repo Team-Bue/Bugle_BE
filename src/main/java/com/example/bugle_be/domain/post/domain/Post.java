@@ -30,16 +30,16 @@ public class Post extends BaseTimeEntity {
     private String region;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
-    private String fileUrl;
+    private String objectKey;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public void update(String content, String country, String region, String fileUrl) {
+    public void update(String content, String country, String region, String objectKey) {
         this.content = content;
         this.country = country;
         this.region = region;
-        this.fileUrl = fileUrl;
+        this.objectKey = objectKey;
     }
 }

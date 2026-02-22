@@ -13,7 +13,7 @@ public record PostsResponse(
         String profileImageUrl,
         String country,
         String region,
-        String fileUrl,
+        String objectKey,
         String content
     ) {
         @QueryProjection

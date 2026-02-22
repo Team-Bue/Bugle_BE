@@ -33,7 +33,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                     post.user.profileImageUrl,
                     post.country,
                     post.region,
-                    post.fileUrl,
+                    post.objectKey,
                     post.content
                 )
             )
@@ -66,7 +66,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
             .select(
                 new QPostSearchResponse_PostResponse(
                     post.id,
-                    post.fileUrl
+                    post.objectKey
                 )
             )
             .from(post)

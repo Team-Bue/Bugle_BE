@@ -9,7 +9,7 @@ public record PostSearchResponse(
 ) {
     public record PostResponse(
         Long id,
-        String fileUrl
+        String objectKey
     ) {
         @QueryProjection
         public PostResponse {
