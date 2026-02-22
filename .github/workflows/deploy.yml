@@ -52,18 +52,27 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # ECR 로그인
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
+            set -e
+
+            aws ecr get-login-password --region ap-northeast-2 | \
               docker login --username AWS --password-stdin \
               ${{ secrets.ECR_REGISTRY }}
 
-            # 최신 이미지 pull
             docker pull ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
 
-            # 컨테이너 재시작
             cd ~/
-            docker compose down || true
+            docker compose down
             docker compose up -d
-
-            # 사용하지 않는 이미지 정리
             docker image prune -f
+
+            echo "헬스체크 시작..."
+            for i in {1..5}; do
+              sleep 30
+              if curl -sf http://localhost:8080/actuator/health; then
+                echo "배포 성공!"
+                exit 0
+              fi
+              echo "$i번째 시도 실패, 재시도..."
+            done
+            echo "헬스체크 최종 실패"
+            exit 1
