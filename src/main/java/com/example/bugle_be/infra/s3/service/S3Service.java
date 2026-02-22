@@ -2,6 +2,7 @@ package com.example.bugle_be.infra.s3.service;
 
 import com.example.bugle_be.infra.s3.properties.S3Properties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
@@ -12,6 +13,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import java.net.URL;
 import java.time.Duration;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class S3Service {
@@ -35,11 +37,15 @@ public class S3Service {
     }
 
     public void deleteObject(String objectKey) {
-        DeleteObjectRequest request = DeleteObjectRequest.builder()
-            .bucket(s3Properties.bucket())
-            .key(objectKey)
-            .build();
+        try {
+            DeleteObjectRequest request = DeleteObjectRequest.builder()
+                .bucket(s3Properties.bucket())
+                .key(objectKey)
+                .build();
 
-        s3Client.deleteObject(request);
+            s3Client.deleteObject(request);
+        } catch (Exception e) {
+            log.error("S3 삭제 실패 - key: {}", objectKey, e);
+        }
     }
 }
