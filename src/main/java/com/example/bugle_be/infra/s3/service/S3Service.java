@@ -1,0 +1,56 @@
+package com.example.bugle_be.infra.s3.service;
+
+import com.example.bugle_be.infra.s3.properties.S3Properties;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+
+import java.net.URL;
+import java.time.Duration;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class S3Service {
+
+    private final S3Client s3Client;
+    private final S3Properties s3Properties;
+    private final S3Presigner s3Presigner;
+
+    public URL createUploadPresignedUrl(String objectKey, Duration expiration) {
+        PutObjectRequest request = PutObjectRequest.builder()
+            .bucket(s3Properties.bucket())
+            .key(objectKey)
+            .build();
+
+        PutObjectPresignRequest presignedRequest = PutObjectPresignRequest.builder()
+            .putObjectRequest(request)
+            .signatureDuration(expiration)
+            .build();
+
+        return s3Presigner.presignPutObject(presignedRequest).url();
+    }
+
+    public void deleteObject(String objectKey) {
+        if (objectKey == null || objectKey.isBlank()) {
+            log.warn("S3 삭제 실패 - objectKey가 null이거나 빈 문자열");
+            return;
+        }
+
+        try {
+            DeleteObjectRequest request = DeleteObjectRequest.builder()
+                .bucket(s3Properties.bucket())
+                .key(objectKey)
+                .build();
+
+            s3Client.deleteObject(request);
+        } catch (Exception e) {
+            log.error("S3 삭제 실패 - key: {}", objectKey, e);
+        }
+    }
+}

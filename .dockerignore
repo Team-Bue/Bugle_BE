@@ -1,0 +1,36 @@
+# Git
+.git
+.gitignore
+.gitattributes
+.github
+
+# IDE
+.idea
+*.iml
+.vscode
+
+# Gradle
+.gradle
+build/classes
+build/tmp
+build/reports
+build/test-results
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Docs
+README.md
+HELP.md
+*.md
+
+# Config
+.coderabbit.yaml
+
+# Test
+src/test
+
+# Generated
+src/main/generated

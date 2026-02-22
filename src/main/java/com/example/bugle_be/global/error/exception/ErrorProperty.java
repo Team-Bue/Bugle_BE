@@ -7,5 +7,4 @@ public interface ErrorProperty {
     HttpStatus getStatus();
 
     String getMessage();
-
 }
