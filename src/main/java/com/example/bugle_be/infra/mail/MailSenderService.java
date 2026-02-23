@@ -19,9 +19,9 @@ public class MailSenderService {
 
     @Async
     public void execute(String email, String code) {
-        String html = templateEngine.process("verification-template", generateContext(code));
-
         try {
+            String html = templateEngine.process("verification-template", generateContext(code));
+
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setTo(email);
