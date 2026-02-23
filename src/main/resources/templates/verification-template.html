@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bugle] 인증번호</title>
+</head>
+<body style="margin:0; padding:0; background:#000000;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="background:#000000;">
+    <tr>
+        <td align="center" style="padding:20px 0;">
+
+            <table width="349" cellpadding="0" cellspacing="0" border="0"
+                   background="https://bugle-bucket.s3.ap-northeast-2.amazonaws.com/email/background.png"
+                   style="width:349px; background-image:url('https://bugle-bucket.s3.ap-northeast-2.amazonaws.com/email/background.png'); background-size:cover; background-position:center;">
+                <tr>
+                    <td style="padding:30px 15px;">
+
+                        <table width="319" cellpadding="0" cellspacing="0" border="0"
+                               style="width:319px; background-color:#000000; border-bottom:1px solid #ffffff; margin-bottom:30px;">
+                            <tr>
+                                <td align="center" style="padding:20px 77px;">
+                                    <img src="https://bugle-bucket.s3.ap-northeast-2.amazonaws.com/email/logo.png"
+                                         alt="Logo"
+                                         width="77" height="42"
+                                         style="display:block; width:77px; height:42px;">
+                                    <p style="margin:16px auto 0 auto; white-space: nowrap; color:#D4D4D4; font-size:12px; font-weight:300; font-family:Arial, sans-serif; word-break:break-word; text-align:center;">
+                                        인증 번호를 3분내로 입력해주세요!
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table width="319" cellpadding="0" cellspacing="0" border="0"
+                               style="width:319px; background-color:#000000; border-bottom:1px solid #ffffff; margin-bottom:30px;">
+                            <tr>
+                                <td align="center" style="padding:20px 50px;">
+                                    <p style="margin:0; color:#E5E5E5; font-size:12px; font-weight:300; font-family:Arial, sans-serif; line-height:1.6; text-align:center;">
+                                        인증번호는 다른 사용자에게 유출하지마세요.<br>
+                                        재전송을 희망하시면 앱에서<br>
+                                        재전송 버튼을 클릭해주세요.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table width="319" cellpadding="0" cellspacing="0" border="0"
+                               style="width:319px; background-color:#000000; border-bottom:1px solid #ffffff;">
+                            <tr>
+                                <td align="center" style="padding:20px 35px;">
+                                    <span th:text="${code}"
+                                          style="color:#ffffff; font-size:32px; font-weight:600; font-family:Arial, sans-serif; letter-spacing:12px;">
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
