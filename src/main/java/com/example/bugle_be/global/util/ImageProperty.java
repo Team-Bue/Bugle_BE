@@ -5,5 +5,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ImageProperty {
 
-    public static final String DEFAULT_USER_PROFILE_IMAGE = "default_user.png";
+    public static final String DEFAULT_USER_PROFILE_IMAGE = "image_file/default_user.png";
 }
