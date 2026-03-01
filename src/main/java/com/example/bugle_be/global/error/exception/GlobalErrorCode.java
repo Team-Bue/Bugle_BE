@@ -10,6 +10,8 @@ public enum GlobalErrorCode implements ErrorProperty {
 
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
 
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "Unauthorized"),
+
     EXPIRED_JWT(HttpStatus.UNAUTHORIZED, "Expired JWT"),
     INVALID_JWT(HttpStatus.UNAUTHORIZED, "Invalid JWT"),
 
