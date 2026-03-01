@@ -7,6 +7,7 @@ import com.example.bugle_be.infra.oauth.handler.Oauth2FailureHandler;
 import com.example.bugle_be.infra.oauth.handler.Oauth2SuccessHandler;
 import com.example.bugle_be.infra.oauth.service.CustomOauth2UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,11 @@ public class SecurityConfig {
             .csrf(CsrfConfigurer::disable)
             .cors(CorsConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
+            .exceptionHandling(exception ->
+                exception.authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                })
+            )
             .sessionManagement(configurer -> configurer
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
