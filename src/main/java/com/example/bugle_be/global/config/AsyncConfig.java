@@ -1,14 +1,18 @@
 package com.example.bugle_be.global.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
+@Slf4j
 @EnableAsync
 @Configuration
 public class AsyncConfig implements AsyncConfigurer {
@@ -34,5 +38,15 @@ public class AsyncConfig implements AsyncConfigurer {
     @Override
     public Executor getAsyncExecutor() {
         return mailAsyncExecutor();
+    }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return new AsyncUncaughtExceptionHandler() {
+            @Override
+            public void handleUncaughtException(Throwable ex, Method method, Object... params) {
+                log.error("Async error in method: {}", method.getName(), ex);
+            }
+        };
     }
 }
