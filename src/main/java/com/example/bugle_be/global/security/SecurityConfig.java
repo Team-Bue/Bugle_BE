@@ -1,17 +1,22 @@
 package com.example.bugle_be.global.security;
 
 import com.example.bugle_be.global.error.GlobalExceptionFilter;
+import com.example.bugle_be.global.error.exception.ErrorProperty;
+import com.example.bugle_be.global.error.exception.GlobalErrorCode;
+import com.example.bugle_be.global.error.response.ErrorResponse;
 import com.example.bugle_be.global.security.jwt.JwtFilter;
 import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
 import com.example.bugle_be.infra.oauth.handler.Oauth2FailureHandler;
 import com.example.bugle_be.infra.oauth.handler.Oauth2SuccessHandler;
 import com.example.bugle_be.infra.oauth.service.CustomOauth2UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -40,6 +45,18 @@ public class SecurityConfig {
             .csrf(CsrfConfigurer::disable)
             .cors(CorsConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
+            .exceptionHandling(exception ->
+                exception.authenticationEntryPoint((request, response, authException) -> {
+                    ErrorProperty errorProperty = GlobalErrorCode.UNAUTHORIZED;
+
+                    response.setStatus(errorProperty.getStatus().value());
+                    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                    response.setCharacterEncoding("UTF-8");
+
+                    ErrorResponse errorResponse = ErrorResponse.of(errorProperty);
+                    objectMapper.writeValue(response.getWriter(), errorResponse);
+                })
+            )
             .sessionManagement(configurer -> configurer
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
