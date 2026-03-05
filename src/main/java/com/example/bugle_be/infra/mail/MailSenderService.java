@@ -17,7 +17,7 @@ public class MailSenderService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
-    @Async
+    @Async("mailAsyncExecutor")
     public void execute(String email, String code) {
         try {
             String html = templateEngine.process("verification-template", generateContext(code));
