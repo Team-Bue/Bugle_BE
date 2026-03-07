@@ -1,0 +1,56 @@
+{
+  "index": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_ngram_diff": 18
+  },
+  "analysis": {
+    "tokenizer": {
+      "nori_tokenizer_mixed": {
+        "type": "nori_tokenizer",
+        "decompound_mode": "mixed"
+      },
+      "autocomplete_tokenizer": {
+        "type": "edge_ngram",
+        "min_gram": 2,
+        "max_gram": 20,
+        "token_chars": ["letter", "digit"]
+      }
+    },
+    "filter": {
+      "nori_speech_filter": {
+        "type": "nori_part_of_speech",
+        "stoptags": [
+          "E",  "IC", "J",
+          "MAG","MAJ","MM",
+          "SP", "SSC","SSO",
+          "SC", "SE",
+          "XPN","XSA","XSN","XSV",
+          "UNA","NA", "VSV"
+        ]
+      }
+    },
+    "analyzer": {
+      "nori_analyzer": {
+        "type": "custom",
+        "tokenizer": "nori_tokenizer_mixed",
+        "filter": ["nori_speech_filter", "lowercase"]
+      },
+      "location_analyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": ["lowercase", "asciifolding"]
+      },
+      "autocomplete_analyzer": {
+        "type": "custom",
+        "tokenizer": "autocomplete_tokenizer",
+        "filter": ["lowercase"]
+      },
+      "autocomplete_search_analyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": ["lowercase"]
+      }
+    }
+  }
+}

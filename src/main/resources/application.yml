@@ -42,6 +42,14 @@ spring:
     redis:
       port: ${REDIS_PORT}
       host: ${REDIS_HOST}
+    elasticsearch:
+      repositories:
+        enabled: true
+
+  elasticsearch:
+    uris: ${ELASTICSEARCH_HOST}
+    username: elastic
+    password: ${ELASTIC_PASSWORD}
 
   security:
     oauth2:
