@@ -23,8 +23,7 @@ public class CreatePostService {
         postRepository.save(
             Post.builder()
                 .content(request.content())
-                .country(request.country())
-                .region(request.region())
+                .location(request.location())
                 .objectKey(request.objectKey())
                 .user(user)
                 .build()

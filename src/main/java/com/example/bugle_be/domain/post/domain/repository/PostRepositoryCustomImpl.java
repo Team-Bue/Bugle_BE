@@ -31,8 +31,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                     post.id,
                     post.user.accountId,
                     post.user.profileImageObjectKey,
-                    post.country,
-                    post.region,
+                    post.location,
                     post.objectKey,
                     post.content
                 )
@@ -58,8 +57,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 
         BooleanExpression condition = switch (type) {
             case CONTENT -> post.content.containsIgnoreCase(keyword);
-            case LOCATION -> post.country.containsIgnoreCase(keyword)
-                .or(post.region.containsIgnoreCase(keyword));
+            case LOCATION -> post.location.containsIgnoreCase(keyword);
         };
 
         return queryFactory
@@ -81,8 +79,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     public Long countByTypeAndKeywordContaining(SearchType type, String keyword) {
         BooleanExpression condition = switch (type) {
             case CONTENT -> post.content.containsIgnoreCase(keyword);
-            case LOCATION -> post.country.containsIgnoreCase(keyword)
-                .or(post.region.containsIgnoreCase(keyword));
+            case LOCATION -> post.location.containsIgnoreCase(keyword);
         };
 
         return queryFactory
