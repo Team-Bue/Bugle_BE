@@ -27,6 +27,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       REDIS_HOST: ${REDIS_HOST}
       REDIS_PORT: ${REDIS_PORT}
+      ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST}
       JWT_SECRET: ${JWT_SECRET}
       HEADER: ${HEADER}
       PREFIX: ${PREFIX}
@@ -45,6 +46,8 @@ services:
       mysql:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      elasticsearch:
         condition: service_healthy
     restart: unless-stopped
     networks:
@@ -92,9 +95,31 @@ services:
       timeout: 5s
       retries: 5
 
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: Dockerfile.elasticsearch
+    container_name: bugle-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    restart: unless-stopped
+    networks:
+      - bugle-network
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
 networks:
   bugle-network:
     driver: bridge
 
 volumes:
   mysql-data:
+  es-data:
