@@ -11,8 +11,7 @@ public record PostsResponse(
         Long id,
         String accountId,
         String profileImageObjectKey,
-        String country,
-        String region,
+        String location,
         String objectKey,
         String content
     ) {

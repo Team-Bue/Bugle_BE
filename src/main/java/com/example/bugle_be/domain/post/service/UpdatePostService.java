@@ -28,8 +28,7 @@ public class UpdatePostService {
 
         post.update(
             request.content(),
-            request.country(),
-            request.region(),
+            request.location(),
             request.objectKey()
         );
     }

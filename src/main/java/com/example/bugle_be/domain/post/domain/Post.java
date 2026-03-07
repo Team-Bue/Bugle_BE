@@ -23,11 +23,8 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "VARCHAR(300)")
     private String content;
 
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String country;
-
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String region;
+    @Column(columnDefinition = "VARCHAR(150)")
+    private String location;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String objectKey;
@@ -36,10 +33,9 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public void update(String content, String country, String region, String objectKey) {
+    public void update(String content, String location, String objectKey) {
         this.content = content;
-        this.country = country;
-        this.region = region;
+        this.location = location;
         this.objectKey = objectKey;
     }
 }
