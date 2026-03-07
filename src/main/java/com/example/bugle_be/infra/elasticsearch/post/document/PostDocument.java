@@ -1,4 +1,4 @@
-package com.example.bugle_be.domain.post.document;
+package com.example.bugle_be.infra.elasticsearch.post.document;
 
 import lombok.Getter;
 import lombok.Builder;
