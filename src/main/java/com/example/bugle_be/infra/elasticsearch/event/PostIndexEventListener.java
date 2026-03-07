@@ -1,6 +1,7 @@
 package com.example.bugle_be.infra.elasticsearch.event;
 
 import com.example.bugle_be.infra.elasticsearch.post.service.CreatePostIndexService;
+import com.example.bugle_be.infra.elasticsearch.post.service.DeletePostIndexService;
 import com.example.bugle_be.infra.elasticsearch.post.service.UpdatePostIndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -14,6 +15,7 @@ public class PostIndexEventListener {
 
     private final CreatePostIndexService createPostIndexService;
     private final UpdatePostIndexService updatePostIndexService;
+    private final DeletePostIndexService deletePostIndexService;
 
     @Async("elasticsearchAsyncExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -21,6 +23,7 @@ public class PostIndexEventListener {
         switch (event.action()) {
             case CREATE -> createPostIndexService.execute(event);
             case UPDATE -> updatePostIndexService.execute(event);
+            case DELETE -> deletePostIndexService.execute(event);
         }
     }
 }
