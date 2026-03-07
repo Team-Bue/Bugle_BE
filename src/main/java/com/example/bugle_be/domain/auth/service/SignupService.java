@@ -8,7 +8,6 @@ import com.example.bugle_be.domain.mail.service.MailService;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
 import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
-import com.example.bugle_be.infra.elasticsearch.event.IndexAction;
 import com.example.bugle_be.infra.elasticsearch.event.UserIndexEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -33,13 +32,7 @@ public class SignupService {
         checkDuplicate(request);
         User user = saveUser(request);
 
-        eventPublisher.publishEvent(new UserIndexEvent(
-            user.getId(),
-            user.getAccountId(),
-            user.getUserName(),
-            user.getProfileImageObjectKey(),
-            IndexAction.CREATE
-        ));
+        eventPublisher.publishEvent(UserIndexEvent.create(user));
 
         return jwtTokenProvider.createToken(request.email());
     }

@@ -4,7 +4,6 @@ import com.example.bugle_be.domain.auth.domain.repository.RefreshTokenRepository
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
 import com.example.bugle_be.domain.user.facade.UserFacade;
-import com.example.bugle_be.infra.elasticsearch.event.IndexAction;
 import com.example.bugle_be.infra.elasticsearch.event.UserIndexEvent;
 import com.example.bugle_be.infra.s3.event.S3DeleteEvent;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +33,7 @@ public class WithdrawService {
             eventPublisher.publishEvent(new S3DeleteEvent(user.getProfileImageObjectKey()));
         }
 
-        eventPublisher.publishEvent(new UserIndexEvent(
-            userId,
-            null,
-            null,
-            null,
-            IndexAction.DELETE
-        ));
+        eventPublisher.publishEvent(UserIndexEvent.delete(userId));
 
         SecurityContextHolder.clearContext();
     }

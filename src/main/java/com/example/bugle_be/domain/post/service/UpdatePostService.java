@@ -6,7 +6,6 @@ import com.example.bugle_be.domain.post.facade.PostFacade;
 import com.example.bugle_be.domain.post.presentation.dto.request.PostRequest;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
-import com.example.bugle_be.infra.elasticsearch.event.IndexAction;
 import com.example.bugle_be.infra.elasticsearch.event.PostIndexEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -36,12 +35,6 @@ public class UpdatePostService {
             request.objectKey()
         );
 
-        eventPublisher.publishEvent(new PostIndexEvent(
-            post.getId(),
-            post.getContent(),
-            post.getLocation(),
-            post.getObjectKey(),
-            IndexAction.UPDATE
-        ));
+        eventPublisher.publishEvent(PostIndexEvent.update(post));
     }
 }
