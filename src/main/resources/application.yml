@@ -48,6 +48,8 @@ spring:
 
   elasticsearch:
     uris: ${ELASTICSEARCH_HOST}
+    username: elastic
+    password: ${ELASTIC_PASSWORD}
 
   security:
     oauth2:
