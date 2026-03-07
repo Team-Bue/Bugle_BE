@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UpdatePostIndexService {
+public class SavePostIndexService {
 
     private final PostDocumentRepository postDocumentRepository;
 
