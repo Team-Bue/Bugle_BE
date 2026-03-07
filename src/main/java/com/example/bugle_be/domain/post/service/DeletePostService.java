@@ -35,7 +35,7 @@ public class DeletePostService {
         postRepository.delete(post);
         eventPublisher.publishEvent(new S3DeleteEvent(post.getObjectKey()));
         eventPublisher.publishEvent(new PostIndexEvent(
-            post.getId(),
+            postId,
             null,
             null,
             null,
