@@ -5,7 +5,9 @@ import com.example.bugle_be.domain.post.domain.repository.PostRepository;
 import com.example.bugle_be.domain.post.presentation.dto.request.PostRequest;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
+import com.example.bugle_be.infra.elasticsearch.event.PostIndexEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +17,13 @@ public class CreatePostService {
 
     private final UserFacade userFacade;
     private final PostRepository postRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public void execute(PostRequest request) {
         User user = userFacade.getCurrentUser();
 
-        postRepository.save(
+        Post post = postRepository.save(
             Post.builder()
                 .content(request.content())
                 .location(request.location())
@@ -28,5 +31,7 @@ public class CreatePostService {
                 .user(user)
                 .build()
         );
+
+        eventPublisher.publishEvent(PostIndexEvent.create(post));
     }
 }

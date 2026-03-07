@@ -8,7 +8,9 @@ import com.example.bugle_be.domain.mail.service.MailService;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.domain.repository.UserRepository;
 import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
+import com.example.bugle_be.infra.elasticsearch.event.UserIndexEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +23,16 @@ public class SignupService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final MailService mailService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public TokenResponse execute(SignupRequest request) {
         mailService.validateToken(request.email(), request.token());
 
         checkDuplicate(request);
-        saveUser(request);
+        User user = saveUser(request);
+
+        eventPublisher.publishEvent(UserIndexEvent.create(user));
 
         return jwtTokenProvider.createToken(request.email());
     }
@@ -41,8 +46,8 @@ public class SignupService {
         }
     }
 
-    private void saveUser(SignupRequest request) {
-        userRepository.save(
+    private User saveUser(SignupRequest request) {
+        return userRepository.save(
             User.builder()
                 .email(request.email())
                 .password(passwordEncoder.encode(request.password()))

@@ -1,4 +1,4 @@
-package com.example.bugle_be.domain.user.document;
+package com.example.bugle_be.infra.elasticsearch.user.document;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

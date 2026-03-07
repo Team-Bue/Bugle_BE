@@ -6,6 +6,7 @@ import com.example.bugle_be.domain.post.exception.CannotDeletePost;
 import com.example.bugle_be.domain.post.facade.PostFacade;
 import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.domain.user.facade.UserFacade;
+import com.example.bugle_be.infra.elasticsearch.event.PostIndexEvent;
 import com.example.bugle_be.infra.s3.event.S3DeleteEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,5 +33,6 @@ public class DeletePostService {
 
         postRepository.delete(post);
         eventPublisher.publishEvent(new S3DeleteEvent(post.getObjectKey()));
+        eventPublisher.publishEvent(PostIndexEvent.delete(postId));
     }
 }
