@@ -1,6 +1,5 @@
 package com.example.bugle_be.domain.user.presentation.dto.request;
 
-import com.example.bugle_be.domain.user.domain.User;
 import com.example.bugle_be.global.util.MessageProperty;
 import com.example.bugle_be.global.util.RegexProperty;
 import jakarta.validation.constraints.Pattern;
@@ -23,11 +22,4 @@ public record UserInfoRequest(
 
     String profileImageObjectKey
 ) {
-    public UserInfoRequest resolve(User user) {
-        return new UserInfoRequest(
-            accountId != null ? accountId : user.getAccountId(),
-            userName != null ? userName : user.getUserName(),
-            profileImageObjectKey != null ? profileImageObjectKey : user.getProfileImageObjectKey()
-        );
-    }
 }

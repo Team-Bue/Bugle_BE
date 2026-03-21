@@ -22,7 +22,7 @@ public class UpdateUserInfoService {
     @Transactional
     public void execute(UserInfoRequest request) {
         User user = userFacade.getCurrentUser();
-        UserInfoRequest resolved = request.resolve(user);
+        UserInfoRequest resolved = resolve(request, user);
 
         if (!user.getAccountId().equals(resolved.accountId())
                 && userRepository.existsByAccountId(resolved.accountId())) {
@@ -32,5 +32,13 @@ public class UpdateUserInfoService {
         user.update(resolved.accountId(), resolved.userName(), resolved.profileImageObjectKey());
 
         eventPublisher.publishEvent(UserIndexEvent.update(user));
+    }
+
+    private UserInfoRequest resolve(UserInfoRequest request, User user) {
+        return new UserInfoRequest(
+            request.accountId() != null ? request.accountId() : user.getAccountId(),
+            request.userName() != null ? request.userName() : user.getUserName(),
+            request.profileImageObjectKey() != null ? request.profileImageObjectKey() : user.getProfileImageObjectKey()
+        );
     }
 }
