@@ -1,9 +1,11 @@
 package com.example.bugle_be.domain.post.presentation;
 
 import com.example.bugle_be.domain.post.presentation.dto.request.PostRequest;
+import com.example.bugle_be.domain.post.presentation.dto.response.PostDetailResponse;
 import com.example.bugle_be.domain.post.presentation.dto.response.PostsResponse;
 import com.example.bugle_be.domain.post.service.CreatePostService;
 import com.example.bugle_be.domain.post.service.DeletePostService;
+import com.example.bugle_be.domain.post.service.QueryPostDetailService;
 import com.example.bugle_be.domain.post.service.QueryPostsService;
 import com.example.bugle_be.domain.post.service.UpdatePostService;
 import com.example.bugle_be.global.dto.TotalPageCountResponse;
@@ -33,6 +35,7 @@ public class PostController {
     private final UpdatePostService updatePostService;
     private final DeletePostService deletePostService;
     private final QueryPostsService queryPostsService;
+    private final QueryPostDetailService queryPostDetailService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,6 +53,12 @@ public class PostController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("post-id") Long postId) {
         deletePostService.execute(postId);
+    }
+
+    @GetMapping("/{post-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDetailResponse queryDetail(@PathVariable("post-id") Long postId) {
+        return queryPostDetailService.execute(postId);
     }
 
     @GetMapping
