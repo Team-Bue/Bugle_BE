@@ -48,6 +48,12 @@ public class User extends BaseTimeEntity {
         this.deviceToken = null;
     }
 
+    public void update(String accountId, String userName, String profileImageObjectKey) {
+        this.accountId = accountId;
+        this.userName = userName;
+        this.profileImageObjectKey = profileImageObjectKey;
+    }
+
     public boolean isCustomProfileImage() {
         return !this.profileImageObjectKey.equals(ImageProperty.DEFAULT_USER_PROFILE_IMAGE);
     }
