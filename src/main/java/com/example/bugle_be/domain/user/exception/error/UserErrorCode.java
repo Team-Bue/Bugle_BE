@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum UserErrorCode implements ErrorProperty {
 
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "User Not Found");
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "User Not Found"),
+    ACCOUNT_ID_ALREADY_EXISTS(HttpStatus.CONFLICT, "Account ID Already Exists");
 
     private final HttpStatus status;
     private final String message;

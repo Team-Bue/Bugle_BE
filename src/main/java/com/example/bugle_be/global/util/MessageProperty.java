@@ -25,6 +25,9 @@ public class MessageProperty {
     public static final String USERNAME_PATTERN = "이름은 한글 또는 영어 대소문자만 입력 가능합니다.";
     public static final String USERNAME_SIZE = "이름은 20자 이내로 입력해주세요.";
 
+    // profileImageObjectKey
+    public static final String PROFILE_IMAGE_OBJECT_KEY_SIZE = "프로필 이미지 키는 255자 이내로 입력해주세요.";
+
     // token
     public static final String TOKEN_NOT_BLANK = "인증 토큰은 필수 입력 항목입니다.";
     public static final String DEVICE_TOKEN_NOT_BLANK = "디바이스 토큰은 필수 입력 항목입니다.";

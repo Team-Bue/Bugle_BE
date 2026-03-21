@@ -27,7 +27,7 @@ public class UserIndexEventListener {
         try {
             elasticsearchRetryTemplate.execute(ctx -> {
                 switch (event.action()) {
-                    case CREATE -> createUserIndexService.execute(event);
+                    case CREATE, UPDATE -> createUserIndexService.execute(event);
                     case DELETE -> deleteUserIndexService.execute(event);
                 }
                 return null;

@@ -13,6 +13,10 @@ public record UserIndexEvent(
         return new UserIndexEvent(user.getId(), user.getAccountId(), user.getUserName(), user.getProfileImageObjectKey(), IndexAction.CREATE);
     }
 
+    public static UserIndexEvent update(User user) {
+        return new UserIndexEvent(user.getId(), user.getAccountId(), user.getUserName(), user.getProfileImageObjectKey(), IndexAction.UPDATE);
+    }
+
     public static UserIndexEvent delete(Long userId) {
         return new UserIndexEvent(userId, null, null, null, IndexAction.DELETE);
     }
