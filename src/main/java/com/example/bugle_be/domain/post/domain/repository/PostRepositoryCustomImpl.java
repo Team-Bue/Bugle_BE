@@ -1,8 +1,12 @@
 package com.example.bugle_be.domain.post.domain.repository;
 
 import static com.example.bugle_be.domain.post.domain.QPost.post;
+import static com.example.bugle_be.domain.user.domain.QUser.user;
 
+import com.example.bugle_be.domain.post.presentation.dto.response.PostDetailResponse;
 import com.example.bugle_be.domain.post.presentation.dto.response.PostsResponse;
+import com.example.bugle_be.domain.post.presentation.dto.response.QPostDetailResponse;
+import com.example.bugle_be.domain.post.presentation.dto.response.QPostDetailResponse_UserDto;
 import com.example.bugle_be.domain.post.presentation.dto.response.QPostsResponse_PostPreviewResponse;
 import com.example.bugle_be.domain.search.presentation.dto.SearchType;
 import com.example.bugle_be.domain.search.presentation.dto.response.PostSearchResponse;
@@ -14,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,6 +46,31 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
             .offset((long) (page - 1) * pageSize)
             .limit(pageSize)
             .fetch();
+    }
+
+    @Override
+    public Optional<PostDetailResponse> findDetailById(Long id) {
+        return Optional.ofNullable(
+            queryFactory
+                .select(
+                    new QPostDetailResponse(
+                        post.id,
+                        post.content,
+                        post.location,
+                        post.objectKey,
+                        post.createdAt,
+                        new QPostDetailResponse_UserDto(
+                            post.user.id,
+                            post.user.accountId,
+                            post.user.profileImageObjectKey
+                        )
+                    )
+                )
+                .from(post)
+                .join(post.user, user)
+                .where(post.id.eq(id))
+                .fetchOne()
+        );
     }
 
     @Override
