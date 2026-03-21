@@ -20,6 +20,7 @@ public record UserInfoRequest(
     @Size(max = 20, message = MessageProperty.USERNAME_SIZE)
     String userName,
 
+    @Size(max = 255, message = MessageProperty.PROFILE_IMAGE_OBJECT_KEY_SIZE)
     String profileImageObjectKey
 ) {
 }
