@@ -1,6 +1,8 @@
 package com.example.bugle_be.global.security.jwt;
 
+import com.example.bugle_be.domain.auth.domain.BlackListToken;
 import com.example.bugle_be.domain.auth.domain.RefreshToken;
+import com.example.bugle_be.domain.auth.domain.repository.BlackListTokenRepository;
 import com.example.bugle_be.domain.auth.domain.repository.RefreshTokenRepository;
 import com.example.bugle_be.domain.auth.presentation.dto.response.TokenResponse;
 import com.example.bugle_be.global.exception.ExpiredJwt;
@@ -30,6 +32,7 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final BlackListTokenRepository blackListTokenRepository;
 
     private SecretKey secretKey;
 
@@ -122,5 +125,22 @@ public class JwtTokenProvider {
     public Authentication authentication(String token) {
         UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    public long getRemainingExpiry(String token) {
+        Date expiration = getClaims(token).getExpiration();
+        long remaining = expiration.getTime() - System.currentTimeMillis();
+        return remaining > 0 ? remaining / 1000 : 0;
+    }
+
+    public void addToBlacklist(String token) {
+        long ttl = getRemainingExpiry(token);
+        if (ttl > 0) {
+            blackListTokenRepository.save(BlackListToken.of(token, ttl));
+        }
+    }
+
+    public boolean isBlacklisted(String token) {
+        return blackListTokenRepository.existsById(token);
     }
 }
