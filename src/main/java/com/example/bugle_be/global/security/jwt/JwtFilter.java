@@ -25,7 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String parseToken = jwtTokenProvider.resolveToken(request);
 
-        if (parseToken != null) {
+        if (parseToken != null && !jwtTokenProvider.isBlacklisted(parseToken)) {
             Authentication authentication = jwtTokenProvider.authentication(parseToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

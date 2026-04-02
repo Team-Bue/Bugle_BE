@@ -53,8 +53,8 @@ public class AuthController {
 
     @DeleteMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logout() {
-        logoutService.execute();
+    public void logout(HttpServletRequest request) {
+        logoutService.execute(request);
     }
 
     @DeleteMapping("/withdraw")

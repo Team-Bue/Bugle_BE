@@ -4,6 +4,8 @@ import com.example.bugle_be.domain.auth.domain.RefreshToken;
 import com.example.bugle_be.domain.auth.domain.repository.RefreshTokenRepository;
 import com.example.bugle_be.domain.auth.exception.RefreshTokenNotFound;
 import com.example.bugle_be.domain.user.facade.UserFacade;
+import com.example.bugle_be.global.security.jwt.JwtTokenProvider;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +16,15 @@ public class LogoutService {
 
     private final UserFacade userFacade;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public void execute() {
+    public void execute(HttpServletRequest request) {
+        String accessToken = jwtTokenProvider.resolveToken(request);
+        if (accessToken != null) {
+            jwtTokenProvider.addToBlacklist(accessToken);
+        }
+
         String email = userFacade.getCurrentUser().getEmail();
 
         RefreshToken refreshToken = refreshTokenRepository.findById(email)
